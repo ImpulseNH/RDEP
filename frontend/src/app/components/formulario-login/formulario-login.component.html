@@ -1,0 +1,29 @@
+<div class="col-lg-8 offset-lg-2">
+    <form [formGroup]="formulario"
+(ngSubmit)="validar()"
+    novalidate>
+        <!-- email -->
+        <div class="mb-4">
+            <input type="text" class="form-control" formControlName="email"
+            placeholder="Email">
+            <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" 
+            class="alert alert-danger">
+                <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
+                <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
+            </div>
+        </div>
+        <!-- password -->
+        <div class="mb-4">
+            <input type="password" class="form-control" formControlName="clave"
+            placeholder="Contraseña">
+            <div *ngIf="formulario.controls['clave'].invalid && (formulario.controls['clave'].touched || formulario.controls['clave'].dirty)" 
+            class="alert alert-danger">
+                <div *ngIf="formulario.controls['clave'].hasError('required')">Campo es obligatorio</div>
+            </div>
+        </div>
+        <!-- boton login -->
+        <div class="text-center">
+            <button [disabled]="!formulario.valid" type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        </div>
+    </form>
+</div>

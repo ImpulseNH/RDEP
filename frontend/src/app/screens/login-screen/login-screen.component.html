@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-4 offset-4  text-center">
+            <img id= "imagen" class="img-rounded"
+            src="../../../assets/deporte.png" alt="login"
+            *ngIf="!registro">
+        </div>
+    </div>
+    <div class="row " *ngIf="!registro">
+        <h3 class="text-center my-5 py-2">INICIAR SESIÓN - RECINTOS DEPORTIVOS</h3>
+        <app-formulario-login></app-formulario-login>
+        <!-- </div> -->
+
+        <div class="col-lg-8 offset-lg-2">
+            <hr class="my-5">
+            <div class="text-center mb-3">
+                <h5>¿No tienes cuenta todavía?</h5>
+            </div>
+            <div class="text-center">
+                <button (click)="registrarse()" class="btn btn-secondary">Ir a Registrarse</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row " *ngIf="registro">
+        <div class="col-4 offset-4  text-center">
+            <img id= "imagen" class="img-rounded"
+            src="../../../assets/registro.png" alt="register"
+            >
+        </div>
+        <h3 class="text-center my-5 py-2">FORMULARIO INSCRIPCIÓN</h3>
+        <app-formulario-registro></app-formulario-registro>
+        <div class="col-lg-8 offset-lg-2">
+            <hr class="my-5">
+            <div class="text-center mb-3">
+                <small >Volver a Login</small>
+            </div>
+            <div class="text-center">
+                <button (click)="volverALogin()" class="btn btn-secondary">Volver a Login</button>
+            </div>
+        </div>
+    </div>
+</div>
