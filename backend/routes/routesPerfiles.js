@@ -29,10 +29,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     const rta = await service.delete(id);
-    if(rta == 0)
-        res.send(false)
-    else
-        res.send(true);
+    res.send(rta);
 });
 
 router.put('/:id', async (req, res) => {
@@ -41,10 +38,7 @@ router.put('/:id', async (req, res) => {
     const tipo = body.tipo;
 
     const rta = await service.update(id, tipo);
-    if(rta == 0)
-        res.send(false)
-    else
-        res.send(true);
+    res.send(rta);
 })
 
 module.exports = router;

@@ -50,7 +50,11 @@ class ServicioPerfiles {
 
   async update(id, tipo) {
     const query = 'UPDATE perfiles SET tipo = $2 WHERE _id = $1';
-    const rta = await this.pool.query(query, [id, tipo]);
+    try {
+      const rta = await this.pool.query(query, [id, tipo]);
+    } catch(error) {
+      return false;
+    }
     if(rta.rowCount == 0)
       return false;
     return true;

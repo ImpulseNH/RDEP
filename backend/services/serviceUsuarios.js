@@ -1,3 +1,4 @@
+const { query } = require('express');
 const getConnection = require('../database/postgresql');
 
 const pool = require('../database/postgresql');
@@ -27,6 +28,46 @@ class ServicioUsuarios {
     catch(error) {
       return false; 
     }
+  }
+
+  async add(nombre, apellido, alias, rut, telefono, email, perfil) {
+    const query = `INSERT INTO usuarios(nombre, apellido, alias_, rut, telefono, email, id_perfil) 
+                   VALUES($1, $2, $3, $4, $5, $6, (SELECT _id FROM perfiles WHERE tipo = $7))`;
+    try {
+      await this.pool.query(query, [nombre, apellido, alias, rut, telefono, email, perfil]);
+    }
+    catch(error) {
+      return false;
+    }
+    return true;
+  }
+
+  async delete(id) {
+    const query = 'DELETE FROM usuarios WHERE _id = $1';
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      return false;
+    return true;
+  }
+
+  async update(id, nombre, apellido, alias, rut, telefono, email, perfil) {
+    const query = `UPDATE usuarios SET
+                    nombre = $2,
+                    apellido = $3,
+                    alias_ = $4,
+                    rut = $5,
+                    telefono = $6,
+                    email = $7,
+                    id_perfil = (SELECT _id FROM perfiles WHERE tipo = $8)
+                  WHERE _id = $1`
+    try {
+      const rta = await this.pool.query(query, [id, nombre, apellido, alias, rut, telefono, email, perfil]);
+    } catch(error) {
+      return false;
+    }
+    if(rta.rowCount == 0)
+      return false;
+    return true;
   }
 }
 
