@@ -1,6 +1,3 @@
-const { query } = require('express');
-const getConnection = require('../database/postgresql');
-
 const pool = require('../database/postgresql');
 
 class ServicioUsuarios {
@@ -13,7 +10,7 @@ class ServicioUsuarios {
     const query = 'SELECT * FROM usuarios';
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
-      return false;
+      return "No hay usuarios en el sistema";
     return rta.rows;
   }
 
@@ -22,11 +19,11 @@ class ServicioUsuarios {
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
-        return false;
+        return "No se encontró ningún usuario con esa id";
       return rta.rows;
     }
     catch(error) {
-      return false; 
+      return "Formato de id incorrecto"; 
     }
   }
 
@@ -37,17 +34,21 @@ class ServicioUsuarios {
       await this.pool.query(query, [nombre, apellido, alias, rut, telefono, email, perfil]);
     }
     catch(error) {
-      return false;
+      return "Error al intentar agregar el usuario. Verifique que el usuario ya exista";
     }
-    return true;
+    return "Usuario agregado exitosamente";
   }
 
   async delete(id) {
     const query = 'DELETE FROM usuarios WHERE _id = $1';
-    const rta = await this.pool.query(query, [id]);
+    try {
+      await this.pool.query(query, [id]);
+    } catch(error) {
+      return "Formato de id incorrecto"
+    }
     if(rta.rowCount == 0)
-      return false;
-    return true;
+      return "No se encontró ningún usuario para eliminar";
+    return "Usuario eliminado exitosamente";
   }
 
   async update(id, nombre, apellido, alias, rut, telefono, email, perfil) {
@@ -61,13 +62,13 @@ class ServicioUsuarios {
                     id_perfil = (SELECT _id FROM perfiles WHERE tipo = $8)
                   WHERE _id = $1`
     try {
-      const rta = await this.pool.query(query, [id, nombre, apellido, alias, rut, telefono, email, perfil]);
+      await this.pool.query(query, [id, nombre, apellido, alias, rut, telefono, email, perfil]);
     } catch(error) {
-      return false;
+      return "Error al intentar actualizar el usuario";
     }
     if(rta.rowCount == 0)
-      return false;
-    return true;
+      return "No se encontró ningún usuario con esa id";
+    return "Usuario actualizado exitosamente";
   }
 }
 
