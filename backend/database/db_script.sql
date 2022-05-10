@@ -50,7 +50,8 @@ CREATE TABLE servicios(
 	_id SERIAL NOT NULL,
 	nombre VARCHAR(25) NOT NULL,
 	duracion VARCHAR(100) NOT NULL,
-	capacidadPorBloque INT NOT NULL,
+	capacidad_bloque INT NOT NULL,
+	valor_base INT NOT NULL,
 	id_recinto SERIAL NOT NULL,
 	
 	CONSTRAINT pk_servicios PRIMARY KEY(_id),
@@ -69,6 +70,7 @@ CREATE TABLE bloques_horarios(
 	hora_inicio TIME NOT NULL,
 	hora_termino TIME NOT NULL,
 	disponible BOOLEAN NOT NULL,
+	valor INT NOT NULL,
 	id_servicio SERIAL NOT NULL,
 	
 	CONSTRAINT pk_bloques_horarios PRIMARY KEY(_id),

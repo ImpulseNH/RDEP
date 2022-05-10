@@ -7,7 +7,9 @@ class ServicioUsuarios {
   }
 
   async getAll() {
-    const query = 'SELECT * FROM usuarios';
+    const query = `SELECT u._id, u.nombre_completo, u.alias_, u.rut, u.telefono, u.email, p.tipo
+                   FROM usuarios u, perfiles p
+                   WHERE u.id_perfil = p._id`;
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
       return "No hay usuarios en el sistema";
@@ -15,7 +17,9 @@ class ServicioUsuarios {
   }
 
   async getOne(id) {
-    const query = 'SELECT * FROM usuarios WHERE _id = $1';
+    const query = `SELECT u._id, u.nombre_completo, u.alias_, u.rut, u.telefono, u.email, p.tipo
+                   FROM usuarios u, perfiles p
+                   WHERE u._id = $1 AND u.id_perfil = p._id`;
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
