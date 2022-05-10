@@ -9,19 +9,14 @@ CREATE TABLE perfiles(
 );
 ALTER TABLE IF EXISTS perfiles OWNER TO rdep_admin;
 
-CREATE EXTENSION citext;
-CREATE DOMAIN EMAIL AS citext
-	CHECK (value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
-
 DROP TABLE IF EXISTS usuarios CASCADE;
 CREATE TABLE usuarios(
 	_id SERIAL NOT NULL,
-	nombre VARCHAR(25) NOT NULL,
-	apellido VARCHAR(25) NOT NULL,
+	nombre_completo VARCHAR(40) NOT NULL,
 	alias_ VARCHAR(25),
 	rut VARCHAR(15) NOT NULL,
 	telefono VARCHAR(11) NOT NULL,
-	email EMAIL NOT NULL,
+	email VARCHAR(40) NOT NULL,
 	id_perfil SERIAL NOT NULL,
 	
 	CONSTRAINT pk_usuarios PRIMARY KEY(_id),
@@ -44,7 +39,9 @@ CREATE TABLE recintos(
 	nombre VARCHAR(25) NOT NULL,
 	direccion VARCHAR(100) NOT NULL,
 	
-	CONSTRAINT pk_recintos PRIMARY KEY(_id)
+	CONSTRAINT pk_recintos PRIMARY KEY(_id),
+
+	CONSTRAINT uq_recintos_nombre UNIQUE(nombre)
 );
 ALTER TABLE IF EXISTS recintos OWNER TO rdep_admin;
 
@@ -53,7 +50,8 @@ CREATE TABLE servicios(
 	_id SERIAL NOT NULL,
 	nombre VARCHAR(25) NOT NULL,
 	duracion VARCHAR(100) NOT NULL,
-	capacidadPorBloque INT NOT NULL,
+	capacidad_bloque INT NOT NULL,
+	valor_base INT NOT NULL,
 	id_recinto SERIAL NOT NULL,
 	
 	CONSTRAINT pk_servicios PRIMARY KEY(_id),
@@ -72,6 +70,7 @@ CREATE TABLE bloques_horarios(
 	hora_inicio TIME NOT NULL,
 	hora_termino TIME NOT NULL,
 	disponible BOOLEAN NOT NULL,
+	valor INT NOT NULL,
 	id_servicio SERIAL NOT NULL,
 	
 	CONSTRAINT pk_bloques_horarios PRIMARY KEY(_id),
