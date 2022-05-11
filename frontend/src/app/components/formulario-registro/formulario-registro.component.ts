@@ -15,6 +15,7 @@ export class FormularioRegistroComponent implements OnInit {
     this.formulario=this.fb.group({
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      telefono:['', [Validators.required, Validators.minLength(1), Validators.maxLength(9)]],
       clave:['', [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
       biografia:['',[Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
     });
@@ -23,6 +24,8 @@ export class FormularioRegistroComponent implements OnInit {
   ngOnInit(): void {
   }
   validar(){
-    //validar
+    console.log(this.formulario.get("nombre")?.value);
+    
+    this.registro=true
   }
 }
