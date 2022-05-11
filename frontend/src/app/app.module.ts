@@ -13,6 +13,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { BarraLateralAdminComponent } from './components/barra-lateral-admin/barra-lateral-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { BarraLateralAdminComponent } from './components/barra-lateral-admin/bar
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDividerModule
     // NgModel
   ],
   providers: [],
