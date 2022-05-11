@@ -26,6 +26,6 @@ export class FormularioRegistroComponent implements OnInit {
   validar(){
     console.log(this.formulario.get("nombre")?.value);
     
-    this.registro=true;
+    this.registro=true
   }
 }
