@@ -1,4 +1,5 @@
-const pool = require('../database/postgresql');
+const pool = require('../libs/postgresql');
+const boom = require('@hapi/boom');
 
 class ServicioServicios {
   constructor() {
@@ -12,22 +13,23 @@ class ServicioServicios {
                    WHERE s.id_recinto = r._id`
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
-      return "No hay servicios en el sistema";
-    return rta.rows;
+      throw boom.notFound("No hay servicios en el sistema");
+    else
+      return rta.rows;
   }
 
-  async getOne() {
+  async getOneByID() {
     const query = `SELECT s._id, s.nombre, s.duracion, s.capacidad_bloque, s.valor_base, r.nombre
                    FROM servicios s, recintos r
                    WHERE s._id = $1 AND s.id_recinto = r._id`;
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
-        return "No se encontró ningún servicio con esa id";
+        throw boom.notFound("No se encontró ningún servicio con esa id");
       return rta.rows;
     }
     catch(error) {
-      return "Formato de id incorrecto"; 
+      throw boom.badRequest("Formato de id incorrecto");
     }
   }
 
@@ -38,9 +40,8 @@ class ServicioServicios {
       await this.pool.query(query, [nombre, duracion, capacidad_bloque, valor_base, recinto]);
     }
     catch(error) {
-      return "Error al intentar agregar el servicio. Verifique que el servicio ya exista";
+      throw boom.badRequest("Error al intentar agregar el servicio. Verifique que el servicio ya exista");
     }
-    return "Servicio agregado exitosamente";
   }
 
   async delete(id) {
@@ -48,11 +49,10 @@ class ServicioServicios {
     try {
       await this.pool.query(query, [id]);
     } catch(error) {
-      return "Formato de id incorrecto"
+      throw boom.badRequest("Formato de id incorrecto");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún servicio para eliminar";
-    return "Servicio eliminado exitosamente";
+      throw boom.notFound("No se encontró ningún servicio para eliminar");
   }
 
   async update(id, nombre, duracion, capacidad_bloque, valor_base, recinto) {
@@ -66,11 +66,10 @@ class ServicioServicios {
     try {
       await this.pool.query(query, [id, nombre, duracion, capacidad_bloque, recinto]);
     } catch(error) {
-      return "Error al intentar actualizar el servicio";
+      throw boom.badRequest("Error al intentar actualizar el servicio");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún servicio con esa id";
-    return "Servicio actualizado exitosamente";
+      throw boom.notFound("No se encontró ningún servicio con esa id");
   }
 }
 

@@ -5,52 +5,72 @@ const ServicioServicios = require('../services/serviceServicios');
 const router = express.Router();
 const service = new ServicioServicios();
 
-router.get('/', async (req, res) => {
-    const servicios = await service.getAll();
-    res.json(servicios);
+router.get('/', async (req, res, next) => {
+    try {
+        const servicios = await service.getAll();
+        res.status(200).json(servicios);
+    } catch (error) {
+        next(error);
+    }
 });
   
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+router.get('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
 
-    const servicio = await service.getOne(id);
-    res.json(servicio);
-});
-
-router.post('/', async (req, res) => {
-    const body = req.body;
-    const servicio = {
-        nombre: body.nombre,
-        duracion: body.duracion,
-        capacidad_bloque: body.capacidad_bloque,
-        valor_base: body.valor_base,
-        recinto: body.recinto
+        const servicio = await service.getOneByID(id);
+        res.status(200).json(servicio);
+    } catch (error) {
+        next(error);
     }
-
-    const rta = await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
-    res.send(rta);
 });
 
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-
-    const rta = await service.delete(id);
-    res.send(rta);
-});
-
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const body = req.body;
-    const servicio = {
-        nombre: body.nombre,
-        duracion: body.duracion,
-        capacidad_bloque: body.capacidad_bloque,
-        valor_base: body.valor_base,
-        recinto: body.recinto
+router.post('/', async (req, res, next) => {
+    try {
+        const body = req.body;
+        const servicio = {
+            nombre: body.nombre,
+            duracion: body.duracion,
+            capacidad_bloque: body.capacidad_bloque,
+            valor_base: body.valor_base,
+            recinto: body.recinto
+        }
+    
+        await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
+        res.status(201).send("Servicio agregado con éxito");
+    } catch (error) {
+        next(error);
     }
+});
 
-    const rta = await service.update(id, servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
-    res.send(rta);
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        await service.delete(id);
+        res.status(200).send("Servicio eliminado con éxito");
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const body = req.body;
+        const servicio = {
+            nombre: body.nombre,
+            duracion: body.duracion,
+            capacidad_bloque: body.capacidad_bloque,
+            valor_base: body.valor_base,
+            recinto: body.recinto
+        }
+    
+        await service.update(id, servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
+        res.status(200).send("Servicio actualizado con éxito");
+    } catch (error) {
+        next(error);
+    }
 })
 
 module.exports = router;

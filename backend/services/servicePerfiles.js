@@ -1,4 +1,5 @@
-const pool = require('../database/postgresql');
+const pool = require('../libs/postgresql');
+const boom = require('@hapi/boom');
 
 class ServicioPerfiles {
   constructor() {
@@ -10,20 +11,21 @@ class ServicioPerfiles {
     const query = 'SELECT * FROM perfiles';
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
-      return "No hay perfiles en el sistema";
-    return rta.rows;
+      throw boom.notFound("No hay perfiles en el sistema");
+    else
+      return rta.rows;
   }
 
-  async getOne(id) {
+  async getOneByID(id) {
     const query = 'SELECT * FROM perfiles WHERE _id = $1';
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
-        return "No se encontró ningún perfil con esa id";
+        throw boom.notFound("No se encontró ningún perfil con esa id");
       return rta.rows;
     }
     catch(error) {
-      return "Formato de id incorrecto";
+      throw boom.badRequest("Formato de id incorrecto");
     }
   }
 
@@ -33,9 +35,8 @@ class ServicioPerfiles {
       await this.pool.query(query, [tipo]);
     }
     catch(error) {
-      return "Error al intentar agregar el perfil. Verifique que el perfil ya exista";
+      throw boom.badRequest("Error al intentar agregar el perfil. Verifique que el perfil ya exista");
     }
-    return "Perfil agregado exitosamente";
   }
 
   async delete(id) {
@@ -43,11 +44,10 @@ class ServicioPerfiles {
     try {
       await this.pool.query(query, [id]);
     } catch(error) {
-      return "Formato de id incorrecto"
+      throw boom.badRequest("Formato de id incorrecto");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún perfil con esa id";
-    return "Perfil eliminado exitosamente";
+      throw boom.notFound("No se encontró ningún perfil con esa id");
   }
 
   async update(id, tipo) {
@@ -55,11 +55,10 @@ class ServicioPerfiles {
     try {
       await this.pool.query(query, [id, tipo]);
     } catch(error) {
-      return "Error al intentar actualizar el perfil";
+      throw boom.badRequest("Error al intentar actualizar el perfil");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún usuario con esa id";
-    return "Perfil actualizado exitosamente";
+      throw boom.notFound("No se encontró ningún usuario con esa id");
   }
 }
 

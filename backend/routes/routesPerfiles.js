@@ -5,40 +5,60 @@ const ServicioPerfiles = require('../services/servicePerfiles');
 const router = express.Router();
 const service = new ServicioPerfiles();
 
-router.get('/', async (req, res) => {
-    const perfiles = await service.getAll();
-    res.json(perfiles);
+router.get('/', async (req, res, next) => {
+    try {
+        const perfiles = await service.getAll();
+        res.json(perfiles);
+    } catch (error) {
+        next(error);
+    }
 });
   
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+router.get('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
 
-    const perfil = await service.getOne(id);
-    res.json(perfil);
+        const perfil = await service.getOneByID(id);
+        res.status(200).json(perfil);
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.post('/', async (req, res) => {
-    const body = req.body;
-    const tipo = body.tipo;
-
-    const rta = await service.add(tipo);
-    res.send(rta);
+router.post('/', async (req, res, next) => {
+    try {
+        const body = req.body;
+        const tipo = body.tipo;
+    
+        await service.add(tipo);
+        res.status(201).send("Perfil agregado con éxito");
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
 
-    const rta = await service.delete(id);
-    res.send(rta);
+        await service.delete(id);
+        res.status(200).send("Perfil eliminado con éxito");
+    } catch (error) {
+        next(error);
+    }
 });
 
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const body = req.body;
-    const tipo = body.tipo;
-
-    const rta = await service.update(id, tipo);
-    res.send(rta);
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const body = req.body;
+        const tipo = body.tipo;
+    
+        const rta = await service.update(id, tipo);
+        res.status(200).send("Perfil actualizado con éxito");
+    } catch (error) {
+        next(error);
+    }
 })
 
 module.exports = router;

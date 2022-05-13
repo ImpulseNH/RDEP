@@ -1,4 +1,4 @@
-const pool = require('../database/postgresql');
+const pool = require('../libs/postgresql');
 
 class ServicioReservas {
   constructor() {

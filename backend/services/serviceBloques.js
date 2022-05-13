@@ -1,4 +1,5 @@
-const pool = require('../database/postgresql');
+const pool = require('../libs/postgresql');
+const boom = require('@hapi/boom');
 
 class ServicioBloques {
   constructor() {
@@ -12,22 +13,23 @@ class ServicioBloques {
                    WHERE b.id_servicio = s._id`
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
-      return "No hay bloques en el sistema";
-    return rta.rows;
+      throw boom.notFound("No hay bloques de horarios en el sistema");
+    else
+      return rta.rows;
   }
 
-  async getOne() {
+  async getOneByID() {
     const query = `SELECT b._id, b.fecha, b.hora_inicio, b.hora_termino, b.disponible, b.valor, s._id, s.nombre
                    FROM bloques_horarios b, servicios s
                    WHERE b._id = $1 AND b.id_servicio = s._id`;
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
-        return "No se encontró ningún bloque de horario con esa id";
+        throw boom.notFound("No se encontró ningún bloque de horario con esa id");
       return rta.rows;
     }
     catch(error) {
-      return "Formato de id incorrecto"; 
+      throw boom.badRequest("Formato de id incorrecto"); 
     }
   }
 
@@ -38,9 +40,8 @@ class ServicioBloques {
       await this.pool.query(query, [fecha, hora_inicio, hora_termino, disponible, valor, id_servicio]);
     }
     catch(error) {
-      return "Error al intentar agregar el bloque de horario";
+      throw boom.badRequest("Error al intentar agregar el bloque de horario");
     }
-    return "Bloque de horario agregado exitosamente";
   }
 
   async delete(id) {
@@ -48,11 +49,10 @@ class ServicioBloques {
     try {
       await this.pool.query(query, [id]);
     } catch(error) {
-      return "Formato de id incorrecto"
+      throw boom.badRequest("Formato de id incorrecto");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún bloque de horario para eliminar";
-    return "Bloque de horario eliminado exitosamente";
+      throw boom.notFound("No se encontró ningún bloque de horario para eliminar");
   }
 
   async update(id, fecha, hora_inicio, hora_termino, disponible, valor, id_servicio) {
@@ -67,11 +67,10 @@ class ServicioBloques {
     try {
       await this.pool.query(query, [id, fecha, hora_inicio, hora_termino, disponible, valor, id_servicio]);
     } catch(error) {
-      return "Error al intentar actualizar el bloque de horario";
+      throw boom.badRequest("Error al intentar actualizar el bloque de horario");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún bloque de horario con esa id";
-    return "Servicio actualizado exitosamente";
+      throw boom.notFound("No se encontró ningún bloque de horario con esa id");
   }
 }
 

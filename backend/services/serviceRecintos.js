@@ -1,4 +1,5 @@
-const pool = require('../database/postgresql');
+const pool = require('../libs/postgresql');
+const boom = require('@hapi/boom');
 
 class ServicioRecintos {
   constructor() {
@@ -10,20 +11,22 @@ class ServicioRecintos {
     const query = 'SELECT * FROM recintos';
     const rta = await this.pool.query(query);
     if(rta.rowCount == 0)
-      return "No hay recintos en el sistema";
-    return rta.rows;
+      throw boom.notFound("No hay recintos en el sistema");
+    else
+      return rta.rows;
   }
 
-  async getOne(id) {
+  async getOneByID(id) {
     const query = 'SELECT * FROM recintos WHERE _id = $1';
     try {
       const rta = await this.pool.query(query, [id]);
       if(rta.rowCount == 0)
-        return "No se encontró ningún recinto con esa id";
-      return rta.rows;
+        throw boom.notFound("No se encontró ningún recinto con esa id");
+      else
+        return rta.rows;
     }
     catch(error) {
-      return "Formato de id incorrecto"; 
+      throw boom.badRequest("Formato de id incorrecto");
     }
   }
 
@@ -33,9 +36,8 @@ class ServicioRecintos {
       await this.pool.query(query, [nombre, direccion]);
     }
     catch(error) {
-      return "Error al intentar agregar el recinto. Verifique que el recinto ya exista";
+      throw boom.badRequest("Error al intentar agregar el recinto. Verifique que el recinto ya exista");
     }
-    return "Recinto agregado exitosamente";
   }
 
   async delete(id) {
@@ -43,11 +45,10 @@ class ServicioRecintos {
     try {
       await this.pool.query(query, [id]);
     } catch(error) {
-      return "Formato de id incorrecto"
+      throw boom.badRequest("Formato de id incorrecto");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún recinto con esa id";
-    return "Recinto eliminado exitosamente";
+      throw boom.notFound("No se encontró ningún recinto con esa id");
   }
 
   async update(id, nombre, direccion) {
@@ -58,11 +59,10 @@ class ServicioRecintos {
     try {
       await this.pool.query(query, [id, nombre, direccion]);
     } catch(error) {
-      return "Error al intentar actualizar el recinto";
+      throw boom.badRequest("Error al intentar actualizar el recinto");
     }
     if(rta.rowCount == 0)
-      return "No se encontró ningún recinto con esa id";
-    return "Recinto actualizado exitosamente";
+      throw boom.notFound("No se encontró ningún recinto con esa id");
   }
 }
 
