@@ -10,14 +10,16 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
+require('./utils/auth');
+
 app.get('/', (req, res) => {
   res.send('Server activo');
 });
 
 routerApi(app);
 
-app.use(logErrors);
 app.use(boomErrorHandler);
+app.use(logErrors);
 app.use(errorHandler);
 
 app.listen(port, () => {

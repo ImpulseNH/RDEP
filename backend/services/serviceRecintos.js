@@ -18,16 +18,11 @@ class ServicioRecintos {
 
   async getOneByID(id) {
     const query = 'SELECT * FROM recintos WHERE _id = $1';
-    try {
-      const rta = await this.pool.query(query, [id]);
-      if(rta.rowCount == 0)
-        throw boom.notFound("No se encontró ningún recinto con esa id");
-      else
-        return rta.rows;
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún recinto con esa id");
+    else
+      return rta.rows;
   }
 
   async add(nombre, direccion) {
@@ -42,11 +37,7 @@ class ServicioRecintos {
 
   async delete(id) {
     const query = 'DELETE FROM recintos WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id]);
-    } catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún recinto con esa id");
   }
@@ -56,11 +47,7 @@ class ServicioRecintos {
                     nombre = $2,
                     direccion = $3,
                   WHERE _id = $1`;
-    try {
-      await this.pool.query(query, [id, nombre, direccion]);
-    } catch(error) {
-      throw boom.badRequest("Error al intentar actualizar el recinto");
-    }
+    const rta = await this.pool.query(query, [id, nombre, direccion]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún recinto con esa id");
   }

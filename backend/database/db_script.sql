@@ -17,7 +17,7 @@ CREATE TABLE usuarios(
 	rut VARCHAR(15) NOT NULL,
 	telefono VARCHAR(11) NOT NULL,
 	email VARCHAR(40) NOT NULL,
-	hash VARCHAR(60),
+	contraseña VARCHAR(60),
 	id_perfil SERIAL NOT NULL,
 	
 	CONSTRAINT pk_usuarios PRIMARY KEY(_id),

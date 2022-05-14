@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 
 const ServicioUsuarios = require('../services/serviceUsuarios');
 
@@ -26,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/registrarse', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
         const usuario = {
@@ -39,9 +38,7 @@ router.post('/registrarse', async (req, res, next) => {
             perfil: body.perfil
         }
     
-        const hash = await bcrypt.hash(usuario.contraseña, 10);
-    
-        await service.add(usuario.nombre_completo, usuario.alias, usuario.rut, usuario.telefono, usuario.email, hash, usuario.perfil);
+        await service.add(usuario.nombre_completo, usuario.alias, usuario.rut, usuario.telefono, usuario.email, usuario.contraseña, usuario.perfil);
         res.status(201).send("Usuario registrado con éxito");
     } catch (error) {
         next(error);

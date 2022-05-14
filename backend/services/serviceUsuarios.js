@@ -1,5 +1,6 @@
 const pool = require('../libs/postgresql');
 const boom = require('@hapi/boom');
+const bcrypt = require('bcrypt');
 
 class ServicioUsuarios {
   constructor() {
@@ -22,36 +23,28 @@ class ServicioUsuarios {
     const query = `SELECT u._id, u.nombre_completo, u.alias_, u.rut, u.telefono, u.email, p.tipo
                    FROM usuarios u, perfiles p
                    WHERE u._id = $1 AND u.id_perfil = p._id`;
-    try {
-      const rta = await this.pool.query(query, [id]);
-      if(rta.rowCount == 0)
-        throw boom.notFound("No se encontró ningún usuario con esa id");
-      else
-        return rta.rows;
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún usuario con esa id");
+    else
+      return rta.rows;
   }
 
   async getPasswordHash(email) {
-    const query = 'SELECT hash FROM usuarios WHERE email = $1';
-    try {
-      const rta = await this.pool.query(query, [email]);
-      if(rta.rowCount == 0)
+    const query = 'SELECT contraseña FROM usuarios WHERE email = $1';
+    const rta = await this.pool.query(query, [email]);
+    if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún usuario con ese email");
-      else
-        return rta.rows[0];
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de email incorrecto");
-    }
+    else
+      return rta.rows[0];
   }
 
-  async add(nombre_completo, alias, rut, telefono, email, hash, perfil) {
-    const query = `INSERT INTO usuarios(nombre_completo, alias_, rut, telefono, email, hash, id_perfil) 
+  async add(nombre_completo, alias, rut, telefono, email, contraseña, perfil) {
+    const query = `INSERT INTO usuarios(nombre_completo, alias_, rut, telefono, email, contraseña, id_perfil) 
                    VALUES($1, $2, $3, $4, $5, $6, (SELECT _id FROM perfiles WHERE tipo = $7))`;
     try {
+      const hash = await bcrypt.hash(contraseña, 10);
+
       await this.pool.query(query, [nombre_completo, alias, rut, telefono, email, hash, perfil]);
     }
     catch(error) {
@@ -61,13 +54,9 @@ class ServicioUsuarios {
 
   async delete(id) {
     const query = 'DELETE FROM usuarios WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id]);
-    } catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
-      throw boom.notFound("No se encontró ningún usuario para eliminar");
+      throw boom.notFound("No se encontró ningún usuario con esa id");
   }
 
   async update(id, nombre_completo, alias, rut, telefono, email, perfil) {
@@ -79,11 +68,8 @@ class ServicioUsuarios {
                     email = $6,
                     id_perfil = (SELECT _id FROM perfiles WHERE tipo = $7)
                   WHERE _id = $1`
-    try {
-      await this.pool.query(query, [id, nombre_completo, alias, rut, telefono, email, perfil]);
-    } catch(error) {
-      throw boom.badRequest("Error al intentar actualizar el usuario");
-    }
+    const rta = await this.pool.query(query, [id, nombre_completo, alias, rut, telefono, email, perfil]);
+
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún usuario con esa id");
   }

@@ -22,15 +22,11 @@ class ServicioServicios {
     const query = `SELECT s._id, s.nombre, s.duracion, s.capacidad_bloque, s.valor_base, r.nombre
                    FROM servicios s, recintos r
                    WHERE s._id = $1 AND s.id_recinto = r._id`;
-    try {
-      const rta = await this.pool.query(query, [id]);
-      if(rta.rowCount == 0)
-        throw boom.notFound("No se encontró ningún servicio con esa id");
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún servicio con esa id");
+    else
       return rta.rows;
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
   }
 
   async add(nombre, duracion, capacidad_bloque, valor_base, recinto) {
@@ -46,13 +42,9 @@ class ServicioServicios {
 
   async delete(id) {
     const query = 'DELETE FROM servicios WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id]);
-    } catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
-      throw boom.notFound("No se encontró ningún servicio para eliminar");
+      throw boom.notFound("No se encontró ningún servicio con esa id");
   }
 
   async update(id, nombre, duracion, capacidad_bloque, valor_base, recinto) {
@@ -63,11 +55,7 @@ class ServicioServicios {
                     valor_base = $5,
                     recinto = (SELECT _id FROM recintos WHERE nombre = $6)
                   WHERE _id = $1`
-    try {
-      await this.pool.query(query, [id, nombre, duracion, capacidad_bloque, recinto]);
-    } catch(error) {
-      throw boom.badRequest("Error al intentar actualizar el servicio");
-    }
+    const rta = await this.pool.query(query, [id, nombre, duracion, capacidad_bloque, recinto]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún servicio con esa id");
   }

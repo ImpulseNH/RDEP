@@ -22,15 +22,11 @@ class ServicioBloques {
     const query = `SELECT b._id, b.fecha, b.hora_inicio, b.hora_termino, b.disponible, b.valor, s._id, s.nombre
                    FROM bloques_horarios b, servicios s
                    WHERE b._id = $1 AND b.id_servicio = s._id`;
-    try {
-      const rta = await this.pool.query(query, [id]);
-      if(rta.rowCount == 0)
-        throw boom.notFound("No se encontró ningún bloque de horario con esa id");
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún bloque de horario con esa id");
+    else
       return rta.rows;
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de id incorrecto"); 
-    }
   }
 
   async add(fecha, hora_inicio, hora_termino, disponible, valor, id_servicio) {
@@ -46,13 +42,9 @@ class ServicioBloques {
 
   async delete(id) {
     const query = 'DELETE FROM bloques_horarios WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id]);
-    } catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
-      throw boom.notFound("No se encontró ningún bloque de horario para eliminar");
+      throw boom.notFound("No se encontró ningún bloque de horario con esa id");
   }
 
   async update(id, fecha, hora_inicio, hora_termino, disponible, valor, id_servicio) {
@@ -64,11 +56,7 @@ class ServicioBloques {
                     valor = $6,
                     id_servicio = $7
                   WHERE _id = $1`
-    try {
-      await this.pool.query(query, [id, fecha, hora_inicio, hora_termino, disponible, valor, id_servicio]);
-    } catch(error) {
-      throw boom.badRequest("Error al intentar actualizar el bloque de horario");
-    }
+    const rta = await this.pool.query(query, [id, fecha, hora_inicio, hora_termino, disponible, valor, id_servicio]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún bloque de horario con esa id");
   }

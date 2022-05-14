@@ -18,15 +18,10 @@ class ServicioPerfiles {
 
   async getOneByID(id) {
     const query = 'SELECT * FROM perfiles WHERE _id = $1';
-    try {
-      const rta = await this.pool.query(query, [id]);
-      if(rta.rowCount == 0)
-        throw boom.notFound("No se encontró ningún perfil con esa id");
-      return rta.rows;
-    }
-    catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún perfil con esa id");
+    return rta.rows;
   }
 
   async add(tipo) {
@@ -41,22 +36,14 @@ class ServicioPerfiles {
 
   async delete(id) {
     const query = 'DELETE FROM perfiles WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id]);
-    } catch(error) {
-      throw boom.badRequest("Formato de id incorrecto");
-    }
+    const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún perfil con esa id");
   }
 
   async update(id, tipo) {
     const query = 'UPDATE perfiles SET tipo = $2 WHERE _id = $1';
-    try {
-      await this.pool.query(query, [id, tipo]);
-    } catch(error) {
-      throw boom.badRequest("Error al intentar actualizar el perfil");
-    }
+    const rta = await this.pool.query(query, [id, tipo]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún usuario con esa id");
   }
