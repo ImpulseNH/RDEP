@@ -22,4 +22,6 @@ describe('BarraLateralAdminComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
 });
