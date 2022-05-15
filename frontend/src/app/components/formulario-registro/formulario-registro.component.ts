@@ -13,6 +13,7 @@ export class FormularioRegistroComponent implements OnInit {
   registro:boolean=false;
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
+      //rut:["",[Validators.required, Validators.pattern("{8}-[\dkK]")]],
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(1), Validators.maxLength(9)]],
