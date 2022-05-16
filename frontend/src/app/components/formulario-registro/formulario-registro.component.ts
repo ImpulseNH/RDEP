@@ -13,12 +13,12 @@ export class FormularioRegistroComponent implements OnInit {
   registro:boolean=false;
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
-      //rut:["",[Validators.required, Validators.pattern("{8}-[\dkK]")]],
+      rut:["",[Validators.required, Validators.pattern('[0-9]{7,8}-[kK|0-9]{1}')]],
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(1), Validators.maxLength(9)]],
       clave:['', [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
-      biografia:['',[Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
+      //biografia:['',[Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
     });
   }
 
