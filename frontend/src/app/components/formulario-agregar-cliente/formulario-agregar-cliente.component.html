@@ -1,0 +1,139 @@
+
+<div id= "container">
+    <h2 class="text-center my-5 py-2">AGREGAR CLIENTE</h2>
+    <div class="col-lg-8 offset-lg-2">
+        <div id="container2">
+            <div *ngIf="!registro">
+                <form [formGroup]="formulario" 
+                (ngSubmit)="validar()" novalidate>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fas fa-id-card text-big"></i>
+                        </span>
+                      </div>
+                      <input
+                        name="rut"
+                        id="rut"
+                        type="text"
+                        class="form-control"
+                        formControlName="rut"
+                        placeholder="Ingrese un RUT"
+                        onkeypress="return isNumber(event)"
+                        oninput="checkRut(this)"
+                        pattern="{8}-[\dkK]"
+                        required
+                        />
+                    </div> 
+                        <!--<input type="text" class="form-control" formControlName="rut"
+                        placeholder="Ingrese RUT: 12345678-9"> -->
+
+                    <!-- nombre -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-user"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" formControlName="nombre"
+                      placeholder="Ingresar Nombre Completo">
+                      <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
+                      class="alert alert-danger">
+                          <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                      </div>
+                    </div>
+
+                    <!-- alias -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-circle-user"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" formControlName="alias"
+                      placeholder="Ingresar Alias">
+                    </div>
+
+                    <!-- telefono -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-phone"></i>+56
+                        </span>
+                      </div>
+                      <input type="number" class="form-control" formControlName="telefono"
+                      placeholder="Ingresar numero de teléfono" pattern="[0-9]{9}">
+                      <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" 
+                      class="alert alert-danger">
+                          <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
+                          <div *ngIf="formulario.controls['telefono'].hasError('maxlength')">Debe contener 9 digitos</div>
+                      </div>
+                    </div>
+
+                    <!--requiere acceso a la plataforma--> <!-- HACER QUE AL PONER SI SE DESPLIEGUE EL CORREO Y CONTRASEÑA-->
+                    <p class="fw-semibold fs-6">¿Requiere acceso a la plataforma?</p>
+                    <div class="form-check">
+                    
+                        <input (click)="acceder()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label (click)="acceder()"class="form-check-label" for="flexRadioDefault1" >
+                         Si
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          No
+                        </label>
+                      </div>
+
+                    <!--correo -->
+                    <div class="mb-3" *ngIf="accede">
+                        <input type="text" class="form-control" formControlName="email"
+                        placeholder="Ingresar Email">
+                        <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" 
+                        class="alert alert-danger">
+                            <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div> <!-- revisar si es obligatorio ponerlo-->
+                            <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
+                            <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener maximo 100 caracteres</div>
+                        </div>
+                    </div>
+
+                    <!-- password -->
+                    <div class="input-group mb-3"  *ngIf="accede">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-key"></i>
+                        </span>
+                      </div>
+                      <input type="password"  *ngIf="accede" class="form-control" formControlName="clave"
+                      placeholder="Ingresar Contraseña">
+                      <div *ngIf="formulario.controls['clave'].invalid && (formulario.controls['clave'].touched || formulario.controls['clave'].dirty)" 
+                      class="alert alert-danger">
+                          <div *ngIf="formulario.controls['clave'].hasError('required')">Campo es obligatorio</div>
+                          <div *ngIf="formulario.controls['clave'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 3 y 100 caracteres</div>
+                      </div>
+                    </div>
+                  
+                    <!-- boton login -->
+                    <div class="text-center">
+                        <button [disabled]="formulario.valid" type="submit" class="btn btn-primary">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="registro">
+                <h1>Datos registrados</h1>
+            </div>
+            <div class="col-lg-8 offset-lg-2">
+                <hr class="my-5">
+                <div class="text-center mb-3">
+                </div>
+                <div class="text-center">
+                    <button [routerLink]="['/admin']" routerLinkActive="router-link-active"  class="btn btn-secondary">Volver atrás</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
