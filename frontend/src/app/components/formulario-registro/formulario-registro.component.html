@@ -12,17 +12,21 @@
                         </span>
                       </div>
                       <input
-                        name="rut"
                         id="rut"
                         type="text"
                         class="form-control"
                         formControlName="rut"
-                        placeholder="Ingrese un RUT"
-                        onkeypress="return isNumber(event)"
-                        oninput="checkRut(this)"
-                        pattern="{8}-[\dkK]"
+                        placeholder="Ingrese un RUT:12345678-k"
+                        name="rut" value="" pattern="[0-9]{7,8}-[kK|0-9]{1}" maxlength="10" 
                         required
                         />
+                        <div class="input-group mb-3">
+                          <div *ngIf="formulario.controls['rut'].invalid && (formulario.controls['rut'].touched || formulario.controls['rut'].dirty)" 
+                          class="alert alert-danger">
+                            <div *ngIf="formulario.controls['rut'].hasError('required')">Campo es obligatorio</div>
+                            <div *ngIf="formulario.controls['rut'].hasError('minlength') || formulario.controls['rut'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                          </div>
+                        </div>
                     </div> 
                         <!--<input type="text" class="form-control" formControlName="rut"
                         placeholder="Ingrese RUT: 12345678-9"> -->
@@ -36,10 +40,12 @@
                       </div>
                       <input type="text" class="form-control" formControlName="nombre"
                       placeholder="Ingresar Nombre Completo">
-                      <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
-                      class="alert alert-danger">
+                      <div class="input-group mb-3">
+                        <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
+                        class="alert alert-danger alert-dismissible" role="alert">
                           <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
                           <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                        </div>
                       </div>
                     </div>
 
@@ -62,11 +68,13 @@
                         </span>
                       </div>
                       <input type="number" class="form-control" formControlName="telefono"
-                      placeholder="Ingresar numero de teléfono" pattern="[0-9]{9}">
-                      <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" 
-                      class="alert alert-danger">
+                      placeholder="Ingresar numero de teléfono de 9 digitos" pattern="[0-9]{9}">
+                      <div class="input-group mb-3">
+                        <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" 
+                        class="alert alert-danger">
                           <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
                           <div *ngIf="formulario.controls['telefono'].hasError('maxlength')">Debe contener 9 digitos</div>
+                        </div>
                       </div>
                     </div>
 
@@ -98,16 +106,21 @@
                       </div>
                       <input type="password" class="form-control" formControlName="clave"
                       placeholder="Ingresar Contraseña">
-                      <div *ngIf="formulario.controls['clave'].invalid && (formulario.controls['clave'].touched || formulario.controls['clave'].dirty)" 
-                      class="alert alert-danger">
+                      <div class="input-group mb-3">
+                        <div *ngIf="formulario.controls['clave'].invalid && (formulario.controls['clave'].touched || formulario.controls['clave'].dirty)" 
+                        class="alert alert-danger">
                           <div *ngIf="formulario.controls['clave'].hasError('required')">Campo es obligatorio</div>
                           <div *ngIf="formulario.controls['clave'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 3 y 100 caracteres</div>
+                        </div>
                       </div>
                     </div>
                   
                     <!-- boton login -->
-                    <div class="text-center">
-                        <button [disabled]="formulario.valid" type="submit" class="btn btn-primary">Registrarse</button>
+                    <!--<div class="text-center">
+                        <button [disabled]="formulario.valid" type="submit" class="btn btn-primary" disabled>Registrarse</button>
+                    </div>-->
+                    <div *ngIf="formulario.valid" class="text-center">
+                      <button id="boton"  type="submit" class="btn btn-primary">Registrarse</button>
                     </div>
                 </form>
             </div>
