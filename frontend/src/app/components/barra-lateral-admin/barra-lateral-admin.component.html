@@ -1,14 +1,15 @@
 <div class="accordion" id="accordionPanelsStayOpenExample">
-    <div class="accordion-item">
+    <div class="accordion-item"  >
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 Clientes
             </button>
         </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" >
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <button id="boton" class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</button>
+                <a id="boton" [routerLink]="['agregarc']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
             </div>
+
             <div id="cliente_info">
                 <li *ngFor="let cliente of clientes">
                     <p>{{cliente.nombre}}</p>
@@ -21,17 +22,22 @@
                 </li>
             </div>
         </div>
+
+
+        
+
     </div>
-    <div class="accordion-item">
+    <div class="accordion-item"  >
         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                 Recintos
             </button>
         </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo" >
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <button id="boton" class="btn btn-outline-secondary" type="button">Agregar nuevo recinto</button>
+                <button id="boton" [routerLink]="['agregarr']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo recinto</button>
             </div>
+            
             <div id="recinto_info">
                 <li *ngFor="let recinto of recintos">
                     <p>{{recinto.nombre}}</p>
@@ -52,7 +58,7 @@
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <button id="boton" class="btn btn-outline-secondary" type="button">Agregar nuevo servicio</button>
+                <button id="boton" [routerLink]="['agregars']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo servicio</button>
             </div>
             <div id="servicio_info">
                 <li *ngFor="let servicio of servicios">
@@ -74,6 +80,6 @@
 
 <div id="salir">
     <div class="me-5 d-none d-lg-block">
-        <button id="boton" class="btn btn-secondary btn-lg" type="button">Salir</button>
+        <button id="boton"  class="btn btn-secondary btn-lg" type="button">Salir</button>
     </div>
 </div>

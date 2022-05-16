@@ -87,4 +87,7 @@ export class BarraLateralAdminComponent implements OnInit {
     },
   ]
 
+  onCreate() {
+    
+  }
 }

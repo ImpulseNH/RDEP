@@ -11,11 +11,11 @@
       <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
         <div class="navbar-nav">
 
-          <a routerLink="./registro" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >REGÍSTRATE</a>
+          <a [routerLink]="['registro']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >REGÍSTRATE</a>
 
-          <a *ngIf="!login" routerLink="./login" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >ACCESO USUARIO</a>
+          <a *ngIf="!login" [routerLink]="['login']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >ACCESO USUARIO</a>
 
-          <a routerLink="./admin" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >ADMINISTRACIÓN</a>
+          <a [routerLink]="['admin']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >ADMINISTRACIÓN</a>
         </div>
       </div>
 

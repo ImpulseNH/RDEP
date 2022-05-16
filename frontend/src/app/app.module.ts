@@ -15,6 +15,9 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { BarraLateralAdminComponent } from './components/barra-lateral-admin/barra-lateral-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDividerModule} from '@angular/material/divider';
+import { FormularioAgregarClienteComponent } from './components/formulario-agregar-cliente/formulario-agregar-cliente.component';
+import { FormularioAgregarServicioComponent } from './components/formulario-agregar-servicio/formulario-agregar-servicio.component';
+import { FormularioAgregarRecintoComponent } from './components/formulario-agregar-recinto/formulario-agregar-recinto.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import {MatDividerModule} from '@angular/material/divider';
     RegistroScreenComponent,
     AdminScreenComponent,
     BarraLateralAdminComponent,
+    FormularioAgregarClienteComponent,
+    FormularioAgregarServicioComponent,
+    FormularioAgregarRecintoComponent,
   ],
   imports: [
     BrowserModule,
