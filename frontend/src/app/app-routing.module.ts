@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:'login', component:LoginScreenComponent},
   {path:'registro', component: RegistroScreenComponent},
   {path:'admin', component: BarraLateralAdminComponent},
-  {path:'admin/agregarc', component: FormularioAgregarClienteComponent},
+  {path:'admin/agregarcli', component: FormularioAgregarClienteComponent},
   {path:'admin/agregarr', component: FormularioAgregarRecintoComponent},
   {path: 'admin/agregars', component: FormularioAgregarServicioComponent}
 ]

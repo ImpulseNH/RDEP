@@ -7,7 +7,7 @@
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" >
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <a id="boton" [routerLink]="['agregarc']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
+                <a id="boton" [routerLink]="['agregarcli']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
             </div>
 
             <table>
@@ -28,6 +28,7 @@
 
             </table>
 
+            <!--
             <div id="cliente_info">
                 <li *ngFor="let cliente of clientes">
                     <p>{{cliente.nombre}}</p>
@@ -40,7 +41,7 @@
                 </li>
             </div>
         </div>
-
+        -->
 
         
 
@@ -73,6 +74,7 @@
 
             </table>
             
+            <!--
             <div id="recinto_info">
                 <li *ngFor="let recinto of recintos">
                     <p>{{recinto.nombre}}</p>
@@ -83,6 +85,7 @@
                     </div>
                 </li>
             </div>
+            -->
         </div>
     </div>
     <div class="accordion-item">
@@ -95,6 +98,8 @@
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
                 <button id="boton" [routerLink]="['agregars']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo servicio</button>
             </div>
+
+            <!--
             <div id="servicio_info">
                 <li *ngFor="let servicio of servicios">
                     <p>{{servicio.nombre}}</p>
@@ -106,6 +111,7 @@
                     </div>
                 </li>
             </div>
+            -->
         </div>
     </div>
 </div>

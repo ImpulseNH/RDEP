@@ -15,6 +15,7 @@ export class FormularioAgregarClienteComponent implements OnInit {
   accede:boolean=false;
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
+      
       //rut:["",[Validators.required, Validators.pattern("{8}-[\dkK]")]],
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
@@ -27,11 +28,17 @@ export class FormularioAgregarClienteComponent implements OnInit {
   ngOnInit(): void {
   }
   validar(){
+    //console.log(this.formulario.get("rut"));
     console.log(this.formulario.get("nombre")?.value);
+    //console.log(this.formulario.get("alias"));
+    console.log(this.formulario.get("telefono")?.value);
+    console.log(this.formulario.get("email")?.value);
+    console.log(this.formulario.get("clave")?.value);
+
     let cliente: Cliente =  {
-      rut: this.formulario.controls['rut'].value,
+     //rut: this.formulario.controls['rut'].value,
       nombrecompleto: this.formulario.controls['nombre'].value,
-      alias: this.formulario.controls['alias'].value,
+      //alias: this.formulario.controls['alias'].value,
       telefono: this.formulario.controls['telefono'].value,
       correo: this.formulario.controls['email'].value,
       contrasena: this.formulario.controls['clave'].value,
