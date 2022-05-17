@@ -18,7 +18,7 @@ export class FormularioRegistroComponent implements OnInit {
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(1), Validators.maxLength(9)]],
       clave:['', [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
-      //biografia:['',[Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
+      
     });
   }
 
