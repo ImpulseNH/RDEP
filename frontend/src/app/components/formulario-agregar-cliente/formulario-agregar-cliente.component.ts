@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Cliente, ListaClientes } from 'src/app/interfaces/cliente';
 
 @Component({
   selector: 'app-formulario-agregar-cliente',
@@ -27,8 +28,20 @@ export class FormularioAgregarClienteComponent implements OnInit {
   }
   validar(){
     console.log(this.formulario.get("nombre")?.value);
-    
+    let cliente: Cliente =  {
+      rut: this.formulario.controls['rut'].value,
+      nombrecompleto: this.formulario.controls['nombre'].value,
+      alias: this.formulario.controls['alias'].value,
+      telefono: this.formulario.controls['telefono'].value,
+      correo: this.formulario.controls['email'].value,
+      contrasena: this.formulario.controls['clave'].value,
+
+    }
+    ListaClientes.push(cliente);
+
+
     this.registro=true
+
   }
   acceder(){
     this.accede=true
