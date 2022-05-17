@@ -17,7 +17,7 @@
 
                     <!--Direccion-->
                     <div  id="separar" >
-                        <input type="text" class="form-control" formControlName="direccion" id="inputAddress" placeholder="Ingrese direccion">
+                        <input type="text" class="form-control" formControlName="direccion"  placeholder="Ingrese direccion">
                         <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].touched || formulario.controls['direccion'].dirty)" 
                         class="alert alert-danger">
                             <div *ngIf="formulario.controls['direccion'].hasError('required')">Campo es obligatorio</div>
@@ -26,7 +26,7 @@
                     
                     <!-- boton login -->
                     <div class="text-center">
-                        <button [disabled]="formulario.valid" type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
                     </div>
                 </form>
             </div>

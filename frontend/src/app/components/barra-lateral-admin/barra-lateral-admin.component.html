@@ -10,6 +10,24 @@
                 <a id="boton" [routerLink]="['agregarc']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
             </div>
 
+            <table>
+
+                <tr>
+                    <th>Nombre Completo</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                </tr>
+                
+                <tr *ngFor="let cliente of Clientes">
+                    <td>{{cliente.nombrecompleto}}</td>
+                    <td>{{cliente.telefono}}</td>
+                    <td>{{cliente.correo}}</td>
+                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
+                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
+                </tr>
+
+            </table>
+
             <div id="cliente_info">
                 <li *ngFor="let cliente of clientes">
                     <p>{{cliente.nombre}}</p>
@@ -37,6 +55,23 @@
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
                 <button id="boton" [routerLink]="['agregarr']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo recinto</button>
             </div>
+
+
+            <table>
+
+                <tr>
+                    <th>Nombre Recinto</th>
+                    <th>Dirección</th>
+                </tr>
+
+                <tr *ngFor="let recinto of Recintos">
+                    <td>{{recinto.nombre}}</td>
+                    <td>{{recinto.direccion}}</td>
+                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
+                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
+                </tr>
+
+            </table>
             
             <div id="recinto_info">
                 <li *ngFor="let recinto of recintos">

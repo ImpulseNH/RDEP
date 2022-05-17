@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ListaRecintos, Recinto } from 'src/app/interfaces/recinto';
 
 @Component({
   selector: 'app-formulario-agregar-recinto',
@@ -12,9 +13,12 @@ export class FormularioAgregarRecintoComponent implements OnInit {
 
   formulario: FormGroup;
   registro:boolean=false;
+  nombre:any;
+  direccion:any;
+  lista:Array<any> = ListaRecintos;
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
-      //rut:["",[Validators.required, Validators.pattern("{8}-[\dkK]")]],
+
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       direccion:['', [Validators.required, Validators.maxLength(100)]],
     });
@@ -26,7 +30,12 @@ export class FormularioAgregarRecintoComponent implements OnInit {
   }
   validar(){
     console.log(this.formulario.get("nombre")?.value);
-    
+    console.log(this.formulario.get("direccion")?.value);
+    let recinto: Recinto =  {
+      nombre: this.formulario.controls['nombre'].value,
+      direccion: this.formulario.controls['direccion'].value
+    }
+    ListaRecintos.push(recinto);
     this.registro=true
   }
 
