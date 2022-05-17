@@ -1,7 +1,7 @@
 export interface Cliente {
-    rut: number;
+    //rut: string;
     nombrecompleto: string;
-    alias: string;
+    //alias:string;
     telefono: number;
     correo: string;
     contrasena: string;

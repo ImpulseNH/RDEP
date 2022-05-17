@@ -17,7 +17,7 @@ export class BarraLateralAdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clientes = [
+/*clientes = [
     {
     id: 1,
     nombre: "esteban",
@@ -91,6 +91,8 @@ export class BarraLateralAdminComponent implements OnInit {
     direccion: "Avda. Ejército Libertador 171"
     },
   ]
+
+  */
 
   onCreate() {
     
