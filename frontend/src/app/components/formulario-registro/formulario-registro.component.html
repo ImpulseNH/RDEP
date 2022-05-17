@@ -24,7 +24,7 @@
                           <div *ngIf="formulario.controls['rut'].invalid && (formulario.controls['rut'].touched || formulario.controls['rut'].dirty)" 
                           class="alert alert-danger">
                             <div *ngIf="formulario.controls['rut'].hasError('required')">Campo es obligatorio</div>
-                            <div *ngIf="formulario.controls['rut'].hasError('minlength') || formulario.controls['rut'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                            <div *ngIf="formulario.controls['rut'].hasError('maxlength')">incorrecto,por ejemplo:12345678-9</div>
                           </div>
                         </div>
                     </div> 
@@ -44,7 +44,7 @@
                         <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
                         class="alert alert-danger alert-dismissible" role="alert">
                           <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
-                          <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres por ejemplo: Juan Pablo Lorenzo Dias </div>
                         </div>
                       </div>
                     </div>
@@ -73,7 +73,8 @@
                         <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" 
                         class="alert alert-danger">
                           <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
-                          <div *ngIf="formulario.controls['telefono'].hasError('maxlength')">Debe contener 9 digitos</div>
+                          <div *ngIf="formulario.controls['telefono'].hasError('telefono')">Formato de telefono inorrecto, Debe contener 9 digitos</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener 9 digitos</div>
                         </div>
                       </div>
                     </div>
@@ -83,20 +84,20 @@
                         <label>Requier acceso a la plataforma</label>
                         <div class="mb-4">
                             <input type="radio" id="terminos" name="terminos" value="1" required=""> Si
-                            <div class="mb-3">
-                                <input type="text" class="form-control" formControlName="email"
-                                placeholder="Ingresar Email">
-                                <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" 
-                                class="alert alert-danger">
-                                    <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div> <!-- revisar si es obligatorio ponerlo-->
-                                    <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
-                                    <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener maximo 100 caracteres</div>
-                                </div>
-                            </div>
                             <input type="radio" id="terminos" name="terminos" value="2" required=""> No
                         </div> 
                     </div>
-
+                    <!--email -->
+                    <div class="mb-3">
+                      <input type="text" class="form-control" formControlName="email"
+                      placeholder="Ingresar Email">
+                      <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" 
+                      class="alert alert-danger">
+                          <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div> <!-- revisar si es obligatorio ponerlo-->
+                          <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto,por ejemplo:maxs@gmail.com</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener maximo 100 caracteres</div>
+                      </div>
+                    </div>
                     <!-- password -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
