@@ -25,8 +25,11 @@ export class FormularioRegistroComponent implements OnInit {
   ngOnInit(): void {
   }
   validar(){
-    console.log(this.formulario.get("nombre")?.value);
+    console.log(this.formulario.get("nombre")?.value);    
+
+    if (this.formulario.valid){
+      this.registro = true;
+    }
     
-    this.registro=true
   }
 }
