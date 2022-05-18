@@ -117,12 +117,10 @@
                     </div>
                   
                     <!-- boton login -->
-                    <!--<div class="text-center">
-                        <button [disabled]="formulario.valid" type="submit" class="btn btn-primary" disabled>Registrarse</button>
-                    </div>-->
-                    <div *ngIf="formulario.valid" class="text-center">
-                      <button id="boton"  type="submit" class="btn btn-primary">Registrarse</button>
+                    <div class="text-center">
+                      <button id="boton" [disabled]="formulario.invalid || formulario.pristine " type="submit" class="btn btn-primary" >Registrarse</button>
                     </div>
+                    
                 </form>
             </div>
             <div *ngIf="registro">
