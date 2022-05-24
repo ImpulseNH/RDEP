@@ -24,7 +24,7 @@
                           <div *ngIf="formulario.controls['rut'].invalid && (formulario.controls['rut'].touched || formulario.controls['rut'].dirty)" 
                           class="alert alert-danger">
                             <div *ngIf="formulario.controls['rut'].hasError('required')">Campo es obligatorio</div>
-                            <div *ngIf="formulario.controls['rut'].hasError('maxlength')">incorrecto,por ejemplo:12345678-9</div>
+                            <div *ngIf="formulario.controls['rut'].hasError">Debe contener por lo menos 9 digitos con guion,por ejemplo:12345678-9</div>
                           </div>
                         </div>
                     </div> 
@@ -74,7 +74,7 @@
                         class="alert alert-danger">
                           <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
                           <div *ngIf="formulario.controls['telefono'].hasError('telefono')">Formato de telefono inorrecto, Debe contener 9 digitos</div>
-                          <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener 9 digitos</div>
+                          <div *ngIf="formulario.controls['telefono'].hasError">Debe contener 9 digitos</div>
                         </div>
                       </div>
                     </div>
