@@ -20,7 +20,7 @@ export class FormularioAgregarRecintoComponent implements OnInit {
     this.formulario=this.fb.group({
 
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      direccion:['', [Validators.required, Validators.maxLength(100)]],
+      direccion:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     });
 
 
@@ -36,8 +36,9 @@ export class FormularioAgregarRecintoComponent implements OnInit {
       direccion: this.formulario.controls['direccion'].value
     }
     ListaRecintos.push(recinto);
-    this.registro=true
+    if (this.formulario.valid){
+      this.registro=true
+    }
   }
-
 } 
 

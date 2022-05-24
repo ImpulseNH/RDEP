@@ -12,7 +12,7 @@
                     <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
                     class="alert alert-danger">
                           <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
-                          <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres, por ejemplo: Juan Pablo Lorenzo Dias</div>
                     </div>
 
                     <!--Direccion-->
@@ -21,13 +21,14 @@
                         <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].touched || formulario.controls['direccion'].dirty)" 
                         class="alert alert-danger">
                             <div *ngIf="formulario.controls['direccion'].hasError('required')">Campo es obligatorio</div>
+                            <div *ngIf="formulario.controls['direccion'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres, por ejemplo Av.Brazil 112,Valparaíso</div>
                         </div>
                     </div>
                     
                     <!-- boton login -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Registrar</button>
-                    </div>
+                        <button id="boton" [disabled]="formulario.invalid || formulario.pristine " type="submit" class="btn btn-primary" >Registrarse</button>
+                      </div>
                 </form>
             </div>
             <div *ngIf="registro">

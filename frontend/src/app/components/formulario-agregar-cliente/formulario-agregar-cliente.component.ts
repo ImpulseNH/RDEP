@@ -15,13 +15,11 @@ export class FormularioAgregarClienteComponent implements OnInit {
   accede:boolean=false;
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
-      
-      //rut:["",[Validators.required, Validators.pattern("{8}-[\dkK]")]],
+      rut:['',[Validators.required, Validators.pattern('[0-9]{7,8}-[kK|0-9]{1}')]],
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(1), Validators.maxLength(9)]],
       clave:['', [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
-      biografia:['',[Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
     });
   }
 
@@ -34,7 +32,7 @@ export class FormularioAgregarClienteComponent implements OnInit {
     console.log(this.formulario.get("telefono")?.value);
     console.log(this.formulario.get("email")?.value);
     console.log(this.formulario.get("clave")?.value);
-
+    
     let cliente: Cliente =  {
      //rut: this.formulario.controls['rut'].value,
       nombrecompleto: this.formulario.controls['nombre'].value,
@@ -46,8 +44,9 @@ export class FormularioAgregarClienteComponent implements OnInit {
     }
     ListaClientes.push(cliente);
 
-
-    this.registro=true
+    if (this.formulario.valid){
+      this.registro=true
+    }
 
   }
   acceder(){
