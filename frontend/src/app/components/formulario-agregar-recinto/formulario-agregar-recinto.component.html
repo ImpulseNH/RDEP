@@ -21,7 +21,7 @@
                         <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].touched || formulario.controls['direccion'].dirty)" 
                         class="alert alert-danger">
                             <div *ngIf="formulario.controls['direccion'].hasError('required')">Campo es obligatorio</div>
-                            <div *ngIf="formulario.controls['direccion'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres, por ejemplo Av.Brazil 112,Valparaíso</div>
+                            <div *ngIf="formulario.controls['direccion'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres, por ejemplo Cancha 1</div>
                         </div>
                     </div>
                     
