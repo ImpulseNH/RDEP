@@ -6,43 +6,40 @@
             </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" >
+
             <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
                 <a id="boton" [routerLink]="['agregarcli']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
             </div>
 
-            <table>
-
-                <tr>
-                    <th>Nombre Completo</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                </tr>
-                
-                <tr *ngFor="let cliente of Clientes">
-                    <td>{{cliente.nombrecompleto}}</td>
-                    <td>{{cliente.telefono}}</td>
-                    <td>{{cliente.correo}}</td>
-                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
-                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
-                </tr>
-
-            </table>
-
-            <!--
-            <div id="cliente_info">
-                <li *ngFor="let cliente of clientes">
-                    <p>{{cliente.nombre}}</p>
-                    <p>{{cliente.rut}}</p>
-                    <p>{{cliente.email}}</p>
-                    <div id="tipoboton" class="d-grid gap-2 col-6 mx-auto">
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Eliminar</button>
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Editar</button>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Clientes</h1>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Listado de Clientes
                     </div>
-                </li>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Completo</th>
+                                    <th>Teléfono</th>
+                                    <th>Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of Clientes">
+                                    <td>{{cliente.nombrecompleto}}</td>
+                                    <td>{{cliente.telefono}}</td>
+                                    <td>{{cliente.correo}}</td>
+                                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
+                                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-        -->
-
         
 
     </div>
@@ -57,35 +54,34 @@
                 <button id="boton" [routerLink]="['agregarr']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo recinto</button>
             </div>
 
-
-            <table>
-
-                <tr>
-                    <th>Nombre Recinto</th>
-                    <th>Dirección</th>
-                </tr>
-
-                <tr *ngFor="let recinto of Recintos">
-                    <td>{{recinto.nombre}}</td>
-                    <td>{{recinto.direccion}}</td>
-                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
-                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
-                </tr>
-
-            </table>
-            
-            <!--
-            <div id="recinto_info">
-                <li *ngFor="let recinto of recintos">
-                    <p>{{recinto.nombre}}</p>
-                    <p>{{recinto.direccion}}</p>
-                    <div id="tipoboton" class="d-grid gap-2 col-6 mx-auto">
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Eliminar</button>
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Editar</button>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Recintos</h1>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Listado de Recintos
                     </div>
-                </li>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Recinto</th>
+                                    <th>Dirección</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let recinto of Recintos">
+                                    <td>{{recinto.nombre}}</td>
+                                    <td>{{recinto.direccion}}</td>
+                                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
+                                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            -->
+
         </div>
     </div>
     <div class="accordion-item">
@@ -99,28 +95,6 @@
                 <button id="boton" [routerLink]="['agregars']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo servicio</button>
             </div>
 
-            <!--
-            <div id="servicio_info">
-                <li *ngFor="let servicio of servicios">
-                    <p>{{servicio.nombre}}</p>
-                    <p>{{servicio.duracion}}</p>
-                    <p>{{servicio.valor_base}}</p>
-                    <div id="tipoboton" class="d-grid gap-2 col-6 mx-auto">
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Eliminar</button>
-                        <button id="boton" class="btn btn-outline-secondary" type="button">Editar</button>
-                    </div>
-                </li>
-            </div>
-            -->
         </div>
-    </div>
-</div>
-
-
-
-
-<div id="salir">
-    <div class="me-5 d-none d-lg-block">
-        <button id="boton"  class="btn btn-secondary btn-lg" type="button">Salir</button>
     </div>
 </div>
