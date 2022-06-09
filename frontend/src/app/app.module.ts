@@ -12,6 +12,7 @@ import { FormularioRegistroComponent } from './components/formulario-registro/fo
 import {HttpClientModule} from '@angular/common/http';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
+import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
 import { BarraLateralAdminComponent } from './components/barra-lateral-admin/barra-lateral-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDividerModule} from '@angular/material/divider';
