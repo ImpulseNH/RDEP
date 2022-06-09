@@ -9,6 +9,7 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 //import { ReactiveFormsModule} from '@angular/forms';
 import { FormularioLoginComponent } from './components/formulario-login/formulario-login.component';
 import { FormularioRegistroComponent } from './components/formulario-registro/formulario-registro.component';
+import { FormularioContactoComponent } from './components/formulario-contacto/formulario-contacto.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';

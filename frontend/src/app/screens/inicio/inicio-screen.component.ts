@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio-screen.component.scss']
 })
 export class inicioScreenComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
