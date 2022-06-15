@@ -6,7 +6,11 @@ import { FormularioAgregarRecintoComponent } from './components/formulario-agreg
 import { FormularioAgregarServicioComponent } from './components/formulario-agregar-servicio/formulario-agregar-servicio.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
-
+<<<<<<< Updated upstream
+=======
+import { ReservasComponent } from './components/reservas/reservas.component';
+import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
+>>>>>>> Stashed changes
 
 
 const routes: Routes = [
@@ -14,9 +18,14 @@ const routes: Routes = [
   {path:'login', component:LoginScreenComponent},
   {path:'registro', component: RegistroScreenComponent},
   {path:'admin', component: BarraLateralAdminComponent},
+<<<<<<< Updated upstream
+=======
+  {path: 'inicio', component:inicioScreenComponent},
+>>>>>>> Stashed changes
   {path:'admin/agregarcli', component: FormularioAgregarClienteComponent},
   {path:'admin/agregarr', component: FormularioAgregarRecintoComponent},
-  {path: 'admin/agregars', component: FormularioAgregarServicioComponent}
+  {path: 'admin/agregars', component: FormularioAgregarServicioComponent},
+  {path: 'reservas', component: ReservasComponent}
 ]
 
 @NgModule({

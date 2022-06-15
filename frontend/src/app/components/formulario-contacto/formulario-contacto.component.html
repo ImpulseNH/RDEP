@@ -1,0 +1,62 @@
+<div id="container">
+    <div class="col-lg-8 offset-lg-2">
+        <div id="container2">
+            <div *ngIf="!registro">
+                <form [formGroup]="formulario" (ngSubmit)="validar()" novalidate>
+                    <!-- nombre -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-user"></i>
+                        </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="nombre" placeholder="Ingresar Nombre Completo">
+                        <div class="input-group mb-3">
+                            <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" class="alert alert-danger alert-dismissible" role="alert">
+                                <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
+                                <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres por ejemplo: Juan Pablo Lorenzo Dias </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- telefono -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                          <i class="fa-solid fa-phone"></i>+56
+                        </span>
+                        </div>
+                        <input type="number" class="form-control" formControlName="telefono" placeholder="Ingresar numero de teléfono de 9 digitos" pattern="[0-9]{9}">
+                        <div class="input-group mb-3">
+                            <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" class="alert alert-danger">
+                                <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
+                                <div *ngIf="formulario.controls['telefono'].hasError('telefono')">Formato de telefono inorrecto, Debe contener 9 digitos</div>
+                                <div *ngIf="formulario.controls['telefono'].hasError">Debe contener 9 digitos</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--email -->
+                    <div class="mb-3">
+                        <input type="text" class="form-control" formControlName="email" placeholder="Ingresar Email">
+                        <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" class="alert alert-danger">
+                            <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
+                            <!-- revisar si es obligatorio ponerlo-->
+                            <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto,por ejemplo:maxs@gmail.com</div>
+                            <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener maximo 100 caracteres</div>
+                        </div>
+                    </div>
+                    <!-- descripción-->
+                    <div class="mb-3">
+                        <textarea name="opinion" cols="50" rows="4"> </textarea>
+                    </div>
+                    <!-- boton contacto -->
+                    <div class="text-center">
+                        <button id="boton" [disabled]="formulario.invalid || formulario.pristine " type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="registro">
+                Hemos recibido tus datos
+            </div>
+        </div>
+    </div>
+</div>
