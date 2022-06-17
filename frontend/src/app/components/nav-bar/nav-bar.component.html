@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand ms-3 me-5">Recintos Deportivos</a>
+    <a class="navbar-brand ms-3 me-5" >Recintos Deportivos</a>
 
     <div class="container-fluid ">
-        <button class="navbar-toggler mx-3 my-4 btn-lineas" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler mx-3 my-4 btn-lineas" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon "></span>
       </button>
 
@@ -10,13 +10,17 @@
 
         <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a [routerLink]="['admin/reservas']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">INICIO</a>
+              <a [routerLink]="['inicio']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">Inicio</a>
 
-                <a [routerLink]="['registro']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">REGÍSTRATE</a>
+              <a *ngIf="!login" [routerLink]="['login']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Ingresar</a>
 
-                <a *ngIf="!login" [routerLink]="['login']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">ACCESO USUARIO</a>
+              <a *ngIf="!login" [routerLink]="['registro']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Registrarse</a>
 
-                <a [routerLink]="['admin']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">ADMINISTRACIÓN</a>
+              <a *ngIf="login" [routerLink]="['reservas']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Reservar</a>
+
+              <a *ngIf="login" [routerLink]="['admin']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Administración</a>
+
+              <a *ngIf="login" (click)="logOut()" role="button" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Salir</a>
             </div>
         </div>
 

@@ -25,6 +25,21 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.post('/isAdmin', async (req, res, next) => {
+    try {
+        const email = req.body.email;
+
+        const rta = await service.getProfile(email);
+
+        if(rta.tipo == "Administrador")
+            res.status(200).send(true);
+        else
+            res.status(200).send(false);
+    } catch (error) {
+        next(error);
+    }
+})
+
 router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
@@ -39,7 +54,7 @@ router.post('/', async (req, res, next) => {
         }
     
         await service.add(usuario.nombre_completo, usuario.alias, usuario.rut, usuario.telefono, usuario.email, usuario.contraseña, usuario.perfil);
-        res.status(201).send("Usuario registrado con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -50,7 +65,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Usuario eliminado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -70,7 +85,7 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, usuario.nombre_completo, usuario.alias, usuario.rut, usuario.telefono, usuario.email, usuario.perfil);
-        res.status(200).send("Usuario actualizado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }

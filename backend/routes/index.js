@@ -10,7 +10,7 @@ function routerApi(app) {
   app.use('/usuarios', routerUsuarios);
   app.use('/recintos', routerRecintos);
   app.use('/perfiles', routerPerfiles);
-  app.use('./servicios', routerServicios);
+  app.use('/servicios', routerServicios);
   app.use('/bloques', routerBloques);
   app.use('/reservas', routerReservas);
   app.use('/auth', routerAuth);

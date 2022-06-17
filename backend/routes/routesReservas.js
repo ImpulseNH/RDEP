@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
         }
     
         await service.add(reserva.fecha_reserva, reserva.valor, reserva.id_usuario, reserva.id_bloque);
-        res.status(201).send("Reserva agregada con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -47,7 +47,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Reserva eliminada con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -65,7 +65,7 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, reserva.fecha_reserva, reserva.valor, reserva.id_usuario, reserva.id_bloque);
-        res.status(200).send("Reserva actualizada con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }

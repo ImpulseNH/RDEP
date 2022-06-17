@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
         }
     
         await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
-        res.status(201).send("Servicio agregado con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -48,7 +48,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Servicio eliminado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -67,7 +67,7 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
-        res.status(200).send("Servicio actualizado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }

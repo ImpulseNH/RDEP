@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
         const tipo = body.tipo;
     
         await service.add(tipo);
-        res.status(201).send("Perfil agregado con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -42,7 +42,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Perfil eliminado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res, next) => {
         const tipo = body.tipo;
     
         const rta = await service.update(id, tipo);
-        res.status(200).send("Perfil actualizado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }

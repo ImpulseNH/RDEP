@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
         }
     
         await service.add(bloque.fecha, bloque.hora_inicio, bloque.hora_termino, bloque.disponible, bloque.valor, bloque.id_servicio);
-        res.status(201).send("Bloque de horario agregado con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -49,7 +49,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Bloque de horario eliminado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -69,7 +69,7 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, bloque.fecha, bloque.hora_inicio, bloque.hora_termino, bloque.disponible, bloque.valor, bloque.id_servicio);
-        res.status(200).send("Bloque de horario actualizado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }

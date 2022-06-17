@@ -30,6 +30,17 @@ class ServicioUsuarios {
       return rta.rows;
   }
 
+  async getProfile(email) {
+    const query = `SELECT p.tipo
+                   FROM usuarios u, perfiles p
+                   WHERE u.email = $1 AND u.id_perfil = p._id`;
+    const rta = await this.pool.query(query, [email]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún usuario con ese email");
+    else
+      return rta.rows[0];
+  }
+
   async getPasswordHash(email) {
     const query = 'SELECT contraseña FROM usuarios WHERE email = $1';
     const rta = await this.pool.query(query, [email]);

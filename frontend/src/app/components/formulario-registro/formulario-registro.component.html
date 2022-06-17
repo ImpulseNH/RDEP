@@ -56,8 +56,14 @@
                           <i class="fa-solid fa-circle-user"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control" formControlName="alias"
-                      placeholder="Ingresar Alias">
+                      <input type="text" class="form-control" formControlName="alias" placeholder="Ingresar Alias">
+                      <div class="input-group mb-3">
+                        <div *ngIf="formulario.controls['alias'].invalid && (formulario.controls['alias'].touched || formulario.controls['alias'].dirty)" 
+                        class="alert alert-danger alert-dismissible" role="alert">
+                          <div *ngIf="formulario.controls['alias'].hasError('required')">Campo es obligatorio</div>
+                          <div *ngIf="formulario.controls['alias'].hasError('minlength') || formulario.controls['alias'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres por ejemplo: Nickname77 </div>
+                        </div>
+                      </div>
                     </div>
 
                     <!-- telefono -->

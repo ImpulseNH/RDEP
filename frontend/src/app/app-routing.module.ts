@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BarraLateralAdminComponent } from './components/barra-lateral-admin/barra-lateral-admin.component';
 import { FormularioAgregarClienteComponent } from './components/formulario-agregar-cliente/formulario-agregar-cliente.component';
@@ -6,8 +6,8 @@ import { FormularioAgregarRecintoComponent } from './components/formulario-agreg
 import { FormularioAgregarServicioComponent } from './components/formulario-agregar-servicio/formulario-agregar-servicio.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
+import { ReservasComponent } from './components/reservas/reservas.component';
 import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
-
 
 
 const routes: Routes = [
@@ -15,10 +15,11 @@ const routes: Routes = [
   {path:'login', component:LoginScreenComponent},
   {path:'registro', component: RegistroScreenComponent},
   {path:'admin', component: BarraLateralAdminComponent},
-  {path: 'admin/reservas', component:inicioScreenComponent},
+  {path: 'inicio', component:inicioScreenComponent},
   {path:'admin/agregarcli', component: FormularioAgregarClienteComponent},
   {path:'admin/agregarr', component: FormularioAgregarRecintoComponent},
-  {path: 'admin/agregars', component: FormularioAgregarServicioComponent}
+  {path: 'admin/agregars', component: FormularioAgregarServicioComponent},
+  {path: 'reservas', component: ReservasComponent}
 ]
 
 @NgModule({

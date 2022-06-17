@@ -1,3 +1,5 @@
+---------------------------- Creación de Tablas ----------------------------
+
 DROP TABLE IF EXISTS perfiles CASCADE;
 CREATE TABLE perfiles(
 	_id SERIAL NOT NULL,
@@ -7,7 +9,6 @@ CREATE TABLE perfiles(
 
 	CONSTRAINT uq_perfiles_tipo UNIQUE(tipo)
 );
-ALTER TABLE IF EXISTS perfiles OWNER TO rdep_admin;
 
 DROP TABLE IF EXISTS usuarios CASCADE;
 CREATE TABLE usuarios(
@@ -32,7 +33,6 @@ CREATE TABLE usuarios(
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
-ALTER TABLE IF EXISTS usuarios OWNER TO rdep_admin;
 
 DROP TABLE IF EXISTS recintos CASCADE;
 CREATE TABLE recintos(
@@ -44,7 +44,6 @@ CREATE TABLE recintos(
 
 	CONSTRAINT uq_recintos_nombre UNIQUE(nombre)
 );
-ALTER TABLE IF EXISTS recintos OWNER TO rdep_admin;
 
 DROP TABLE IF EXISTS servicios CASCADE;
 CREATE TABLE servicios(
@@ -62,7 +61,6 @@ CREATE TABLE servicios(
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
-ALTER TABLE IF EXISTS servicios OWNER TO rdep_admin;
 
 DROP TABLE IF EXISTS bloques_horario CASCADE;
 CREATE TABLE bloques_horarios(
@@ -81,7 +79,6 @@ CREATE TABLE bloques_horarios(
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
-ALTER TABLE IF EXISTS bloques_horarios OWNER TO rdep_admin;
 
 DROP TABLE IF EXISTS reservas CASCADE;
 CREATE TABLE reservas(
@@ -103,4 +100,10 @@ CREATE TABLE reservas(
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
-ALTER TABLE IF EXISTS reservas OWNER TO rdep_admin;
+
+---------------------------- Inserción de Perfiles ----------------------------
+
+INSERT INTO perfiles(tipo)
+VALUES ('Administrador'), ('Cliente'), ('Recepcionista');
+
+---------------------------- sssssssssssssssss ----------------------------

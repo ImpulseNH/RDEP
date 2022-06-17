@@ -34,7 +34,7 @@ router.post('/', async (req, res, next) => {
         }
     
         await service.add(recinto.nombre, recinto.direccion);
-        res.status(201).send("Recinto agregado con éxito");
+        res.status(201).send(true);
     } catch (error) {
         next(error);
     }
@@ -45,7 +45,7 @@ router.delete('/:id', async (req, res, next) => {
         const { id } = req.params;
 
         await service.delete(id);
-        res.status(200).send("Recinto eliminado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
@@ -61,7 +61,7 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, recinto.nombre, recinto.direccion);
-        res.status(200).send("Recinto actualizado con éxito");
+        res.status(200).send(true);
     } catch (error) {
         next(error);
     }
