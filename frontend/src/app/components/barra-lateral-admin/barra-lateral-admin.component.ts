@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente, ListaClientes } from 'src/app/interfaces/cliente';
-import { ListaRecintos, Recinto } from 'src/app/interfaces/recinto';
+import { Cliente } from 'src/app/interfaces/cliente';
+import { Recinto } from 'src/app/interfaces/recinto';
+
+import { UsuarioService } from '../../services/usuario/usuario.service';
+import { RecintoService } from '../../services/recinto/recinto.service';
 
 @Component({
   selector: 'app-barra-lateral-admin',
@@ -9,10 +12,17 @@ import { ListaRecintos, Recinto } from 'src/app/interfaces/recinto';
 })
 export class BarraLateralAdminComponent implements OnInit {
 
-  constructor() { }
+  clientes:Array<Cliente> = [];
+  recintos:Array<Recinto> = [];
 
-  Recintos:Array<Recinto>=ListaRecintos;
-  Clientes: Array<Cliente>=ListaClientes;
+  constructor(private servicioUsuario:UsuarioService, private servicioRecinto:RecintoService) {
+    servicioUsuario.getClientes().subscribe(rta=>{
+      this.clientes = rta;
+    });
+    servicioRecinto.getRecintos().subscribe(rta=>{
+      this.recintos = rta;
+    })
+  }
 
   ngOnInit(): void {
   }

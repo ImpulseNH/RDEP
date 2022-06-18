@@ -80,55 +80,63 @@
             <div id="container2">
                 <div *ngIf="!registro">
                     <form [formGroup]="formulario" (ngSubmit)="validar()" novalidate>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
                         <!-- nombre -->
-                        <div class="input-group mb-3">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label> 
+                            <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <i class="fa-solid fa-user"></i>
-                                </span>
-                            </div>
-
-                            <input type="text" class="form-control" formControlName="nombre" placeholder="Ingresar Nombre Completo">
-                            <div class="input-group mb-3">
-                                <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" class="alert alert-danger alert-dismissible" role="alert">
-                                    <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
-                                    <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">Debe contener entre 1 y 25 caracteres por ejemplo: Juan Pablo Lorenzo Dias </div>
+                                <div class="input-group-text">
+                                <i class="fa fa-user"></i>
                                 </div>
+                            </div> 
+                            <input id="nombre" name="nombre" placeholder="Ej: Juanito Pérez" type="text" required="required" class="form-control" formControlName="nombre">
+                            </div>
+                            <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" 
+                            class="alert alert-danger alert-dismissible" role="alert">
+                            <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
+                            <div *ngIf="formulario.controls['nombre'].hasError('minlength') || formulario.controls['nombre'].hasError('maxlength')">El nombre completo debe contener como mínimo 8 caracteres</div>
                             </div>
                         </div>
-
+                        
                         <!-- telefono -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <i class="fa-solid fa-phone"></i>+56
-                                </span>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label> 
+                            <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="fa fa-phone"></i>+56
                             </div>
-                            
-                            <input type="number" class="form-control" formControlName="telefono" placeholder="Ingresar numero de teléfono de 9 digitos" pattern="[0-9]{9}">
-                            <div class="input-group mb-3">
-                                <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" class="alert alert-danger">
-                                    <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
-                                    <div *ngIf="formulario.controls['telefono'].hasError('telefono')">Formato de telefono inorrecto, Debe contener 9 digitos</div>
-                                    <div *ngIf="formulario.controls['telefono'].hasError">Debe contener 9 digitos</div>
-                                </div>
+                            <input id="telefono" name="telefono" placeholder="Ej: 123456789" type="text" required="required" class="form-control" formControlName="telefono">
+                            </div>
+                            <div *ngIf="formulario.controls['telefono'].invalid && (formulario.controls['telefono'].touched || formulario.controls['telefono'].dirty)" class="alert alert-danger">
+                            <div *ngIf="formulario.controls['telefono'].hasError('required')">Campo es obligatorio</div>
+                            <div *ngIf="formulario.controls['telefono'].hasError('telefono')">Formato de telefono inorrecto, debe contener 9 números</div>
+                            <div *ngIf="formulario.controls['telefono'].hasError">Formato de telefono inorrecto, debe contener 9 números</div>
                             </div>
                         </div>
 
-                        <!--email -->
-                        <div class="mb-3">
-                            <input type="text" class="form-control" formControlName="email" placeholder="Ingresar Email">
+                        <!--correo -->
+                        <div class="form-group">
+                            <label for="email">Email</label> 
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                            </div> 
+                            <input id="email" name="email" placeholder="Ej: email@ejemplo.com" type="text" class="form-control" formControlName="email" required="required">
+                            </div>
                             <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" class="alert alert-danger">
-                                <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
-                                <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto,por ejemplo:maxs@gmail.com</div>
-                                <div *ngIf="formulario.controls['nombre'].hasError('maxlength')">Debe contener maximo 100 caracteres</div>
+                            <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
+                            <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
                             </div>
                         </div>
 
                         <!-- descripción-->
                         <div class="mb-3">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" placeholder="Tu mensaje aquí" rows="3"></textarea>
                         </div>
 
                         <!-- boton contacto -->

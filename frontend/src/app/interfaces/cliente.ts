@@ -1,11 +1,9 @@
 export interface Cliente {
-    //rut: string;
-    nombrecompleto: string;
-    //alias:string;
+    rut: string;
+    nombre_completo: string;
+    alias_:string;
     telefono: number;
-    correo: string;
-    contrasena: string;
-
+    email: string;
+    contraseña: string;
+    perfil: string;
 }
-
-export const ListaClientes:Array<Cliente> = [];

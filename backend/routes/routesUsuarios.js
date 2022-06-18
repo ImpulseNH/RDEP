@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
         const body = req.body;
         const usuario = {
             nombre_completo: body.nombre_completo,
-            alias: body.alias,
+            alias: body.alias_,
             rut: body.rut,
             telefono: body.telefono,
             email: body.email,

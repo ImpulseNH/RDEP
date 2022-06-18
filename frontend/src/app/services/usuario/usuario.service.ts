@@ -14,6 +14,10 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  public getClientes(): Observable<any> {
+    return this.http.get(enviroment.connHttp+'/usuarios');
+  }
+
   public login(datos: any): Observable<any> {
     return this.http.post(enviroment.connHttp+'/auth/login', datos);
   }
@@ -39,7 +43,7 @@ export class UsuarioService {
     localStorage.setItem("emailUsuario", String(email));
   }
 
-  registrarUsuario(datos: any): Observable<any> {
+  public registrarUsuario(datos: any): Observable<any> {
     return this.http.post(enviroment.connHttp+'/usuarios', datos);
   }
 }

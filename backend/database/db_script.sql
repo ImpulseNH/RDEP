@@ -17,7 +17,7 @@ CREATE TABLE usuarios(
 	alias_ VARCHAR(25),
 	rut VARCHAR(15) NOT NULL,
 	telefono VARCHAR(11) NOT NULL,
-	email VARCHAR(40) NOT NULL,
+	email VARCHAR(40),
 	contraseña VARCHAR(60),
 	id_perfil SERIAL NOT NULL,
 	
@@ -26,7 +26,6 @@ CREATE TABLE usuarios(
 	CONSTRAINT uq_usuarios_alias UNIQUE(alias_),
 	CONSTRAINT uq_usuarios_rut UNIQUE(rut),
 	CONSTRAINT uq_usuarios_telefono UNIQUE(telefono),
-	CONSTRAINT uq_usuarios_email UNIQUE(email),
 
 	CONSTRAINT fk_usuarios_perfiles FOREIGN KEY(id_perfil)
 	REFERENCES perfiles(_id)

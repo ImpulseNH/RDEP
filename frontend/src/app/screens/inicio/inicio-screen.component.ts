@@ -15,22 +15,16 @@ export class inicioScreenComponent implements OnInit {
   constructor(private fb:FormBuilder,  private router:Router) {
     this.formulario=this.fb.group({
       nombre:['', [Validators.required]],
-      email:['', [Validators.required, Validators.email]],
-      telefono:['', [Validators.required]],
+      email:['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      telefono:['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
     });
   }
 
   ngOnInit(): void {
   }
   validar(){
-    console.log(this.formulario.get("nombre")?.value);
-    console.log(this.formulario.get("telefono")?.value);
-    console.log(this.formulario.get("email")?.value);
-
     if (this.formulario.valid){
       this.registro=true
     }
-
   }
-
 }
