@@ -1,14 +1,14 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="col-lg-8 offset-lg-2">
-
-
-
     <div id="seleccion_atributos">
         <h4>Selecciona el recinto</h4>
         <mat-form-field appearance="fill">
             <mat-label>Recinto</mat-label>
-            <mat-select [(value)]="recinto_seleccionado">
+            <mat-select [(value)]="recinto_seleccionado" (selectionChange)="selectRecinto(recinto_seleccionado)">
                 <mat-option *ngFor="let recinto of recintos" [value]="recinto">
-                    {{recinto.nombre}}
+                    {{recinto.nombre_recinto}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -16,8 +16,8 @@
         <h4>Selecciona el servicio</h4>
         <mat-form-field appearance="fill">
             <mat-label>Servicio</mat-label>
-            <mat-select [(value)]="servicio_seleccionado">
-                <mat-option *ngFor="let servicio of recinto_seleccionado.Servicios" [value]="servicio">
+            <mat-select [(value)]="servicio_seleccionado" (selectionChange)="selectServicio(servicio_seleccionado)">
+                <mat-option *ngFor="let servicio of servicios_recinto" [value]="servicio">
                     {{servicio.nombre}}
                 </mat-option>
             </mat-select>
@@ -25,15 +25,77 @@
 
         <h4>Selecciona el día</h4>
         <mat-form-field appearance="fill">
-            <mat-label>Choose a date</mat-label>
+            <mat-label>Elige una fecha</mat-label>
             <input matInput [matDatepicker]="picker" (dateChange)="dateChanged($event)">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-    </div>
-    <div id="horario">
-        <p>El servicio {{servicio_seleccionado.nombre}} en {{recinto_seleccionado.nombre}} tiene {{servicio_seleccionado.capacidad_bloque}} columna(s)</p>
 
+        <hr>
+
+        <h2>Bloques Disponibles</h2>
+    </div>
+
+    <div class="card-body" *ngIf="recinto_seleccionado && servicio_seleccionado && fecha_seleccionada">
+        <table class="table table-sm table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora de inicio</th>
+                    <th>Hora de término</th>
+                    <th>Disponible</th>
+                    <th>Valor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let bloque of bloques_servicio">
+                    <tr *ngIf="compararFechas(bloque.fecha)">
+                        <td>{{bloque.fecha | date:'d/M/y'}}</td>
+                        <td>{{bloque.hora_inicio}}</td>
+                        <td>{{bloque.hora_termino}}</td>
+                        <td *ngIf="bloque.disponible">Sí</td>
+                        <td *ngIf="!bloque.disponible">No</td>
+                        <td>{{bloque.valor}}</td>
+                        <td>
+                            <button class="btn btn-primary" type="button" [disabled]="!bloque.disponible" data-toggle="modal" data-target="#modalReservar" (click)="modalReservar(bloque)">
+                                Reservar
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Reservar -->
+<div class="modal fade" id="modalReservar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirmar Reserva</h5>
+        <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body" *ngIf="bloqueActual != null">
+            Resumen de tu reserva:<br>
+            <br>
+            <b>Recinto: </b>{{recinto_seleccionado.nombre_recinto}}<br>
+            <b>Servicio: </b>{{servicio_seleccionado.nombre}}<br>
+            <b>Fecha: </b>{{fecha_seleccionada | date:'d/M/y'}}<br>
+            <b>Hora de inicio: </b>{{bloqueActual.hora_inicio}}<br>
+            <b>Hora de término: </b>{{bloqueActual.hora_termino}}<br>
+            <b>Valor: </b>{{bloqueActual.valor}}<br>
+            <br>
+            ¿Estás seguro que quieres reservar este recinto?<br>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarReserva()">Confirmar</button>
+        </div>
+    </div>
     </div>
 </div>

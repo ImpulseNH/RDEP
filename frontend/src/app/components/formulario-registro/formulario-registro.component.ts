@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cliente } from 'src/app/interfaces/cliente';
 
 import { UsuarioService } from '../../services/usuario/usuario.service';
 
@@ -29,7 +28,7 @@ export class FormularioRegistroComponent implements OnInit {
   }
 
   validar(){
-    let cliente: Cliente = {
+    let cliente = {
       nombre_completo: this.formulario.controls['nombre'].value,
       alias_: this.formulario.controls['alias'].value,
       rut: this.formulario.controls['rut'].value,
@@ -47,6 +46,5 @@ export class FormularioRegistroComponent implements OnInit {
           alert("Error")
       })
     }
-    
   }
 }

@@ -11,18 +11,24 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 export class NavBarComponent implements OnInit {
 
   login:boolean=false;
+  admin:boolean=false;
+
   constructor(private servicioUsuario:UsuarioService, private router:Router) { }
 
   ngOnInit(): void {
     this.servicioUsuario.setLoginObservable.subscribe(rta=>{
       this.login=rta;
     });
+    this.servicioUsuario.setAdminObservable.subscribe(rta=>{
+      this.admin=rta;
+    })
   }
 
   logOut(){
     this.servicioUsuario.logout();
     this.login=false;
-    this.servicioUsuario.sendLoginData(false);
+    this.admin=false;
+    this.servicioUsuario.sendLoginData(false, false);
     this.router.navigate(['/login']);
   }
 }

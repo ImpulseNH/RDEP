@@ -25,6 +25,26 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.get('/perfil/clientes', async (req, res, next) => {
+    try {
+        const clientes = await service.getAllClientes();
+        res.status(200).json(clientes);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post('/email', async (req, res, next) => {
+    try {
+        const email = req.body.email;
+
+        const rta = await service.getIdByEmail(email);
+        res.status(200).send(rta);
+    } catch (error) {
+        next(error);
+    }
+})
+
 router.post('/isAdmin', async (req, res, next) => {
     try {
         const email = req.body.email;
@@ -77,7 +97,7 @@ router.put('/:id', async (req, res, next) => {
         const body = req.body;
         const usuario = {
             nombre_completo: body.nombre_completo,
-            alias: body.alias,
+            alias: body.alias_,
             rut: body.rut,
             telefono: body.telefono,
             email: body.email,

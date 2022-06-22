@@ -10,10 +10,7 @@ class ServicioRecintos {
   async getAll() {
     const query = 'SELECT * FROM recintos';
     const rta = await this.pool.query(query);
-    if(rta.rowCount == 0)
-      throw boom.notFound("No hay recintos en el sistema");
-    else
-      return rta.rows;
+    return rta.rows;
   }
 
   async getOneByID(id) {
@@ -26,7 +23,7 @@ class ServicioRecintos {
   }
 
   async add(nombre, direccion) {
-    const query = 'INSERT INTO recintos(nombre, direccion) VALUES($1, $2)';
+    const query = 'INSERT INTO recintos(nombre_recinto, direccion) VALUES($1, $2)';
     try {
       await this.pool.query(query, [nombre, direccion]);
     }
@@ -44,8 +41,8 @@ class ServicioRecintos {
 
   async update(id, nombre, direccion) {
     const query = `UPDATE recintos SET
-                    nombre = $2,
-                    direccion = $3,
+                    nombre_recinto = $2,
+                    direccion = $3
                   WHERE _id = $1`;
     const rta = await this.pool.query(query, [id, nombre, direccion]);
     if(rta.rowCount == 0)

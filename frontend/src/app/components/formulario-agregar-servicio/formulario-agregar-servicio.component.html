@@ -9,74 +9,80 @@
 
                     <!-- recinto -->
                     <div class="form-group">
-                        <label for="recinto">Recinto</label> 
-                        <div>
-                          <select id="recinto" name="recinto" class="custom-select" aria-describedby="recintoHelpBlock" required="required">
-                            <option value="cancha1">Cancha 1</option>
-                            <option value="cancha2">Cancha 2</option>
-                          </select> 
-                          <span id="recintoHelpBlock" class="form-text text-muted">Selecciona un recinto o añade uno nuevo</span>
+                        <h3>Recinto</h3>
+                        <div class="input-group">
+                          <select id="recinto" name="recinto" class="custom-select" aria-describedby="recintoHelpBlock" required="required" formControlName="recinto">
+                            <option *ngFor="let recinto of recintos" [value]="recinto.nombre_recinto">{{recinto.nombre_recinto}}</option>
+                          </select>
+                          <a id="boton" [routerLink]="['/admin/agregar-recinto']" routerLinkActive="router-link-active" class="btn btn-primary" type="button">+</a>
                         </div>
+                        <div *ngIf="formulario.controls['recinto'].invalid && (formulario.controls['recinto'].touched || formulario.controls['recinto'].dirty)" class="alert alert-danger">
+                          <div *ngIf="formulario.controls['recinto'].hasError('required')">No has seleccionado un recinto</div>
+                        </div>
+                        <span id="recintoHelpBlock" class="form-text text-muted">Selecciona un recinto o añade uno nuevo</span>
                       </div>
 
                       <!-- nombre -->
-                      <hr>
                       <div class="form-group">
-                        <label for="servicio">Nombre</label> 
+                        <h3>Nombre</h3>
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="fa fa-circle"></i>
                             </div>
                           </div> 
-                          <input id="servicio" name="servicio" placeholder="Ej: Fútbol" type="text" class="form-control" required="required">
+                          <input id="servicio" name="servicio" placeholder="Ej: Fútbol" type="text" class="form-control" required="required" class="form-control" formControlName="nombre">
+                        </div>
+                        <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].touched || formulario.controls['nombre'].dirty)" class="alert alert-danger">
+                          <div *ngIf="formulario.controls['nombre'].hasError('required')">Campo es obligatorio</div>
+                          <div *ngIf="formulario.controls['nombre'].hasError('minlength')">El nombre del servicio debe contener como mínimo 3 caracteres</div>
                         </div>
                       </div>
 
                       <!-- duracion -->
                       <hr>
                       <div class="form-group">
-                        <label>Duración</label> 
+                        <h3>Duración</h3>
                         <div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_0" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="15m"> 
+                              <input name="duracion" id="duracion_0" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="15m" formControlName="duracion"> 
                               <label for="duracion_0" class="custom-control-label">15 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_1" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="30m"> 
+                              <input name="duracion" id="duracion_1" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="30m" formControlName="duracion"> 
                               <label for="duracion_1" class="custom-control-label">30 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_2" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h"> 
+                              <input name="duracion" id="duracion_2" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h" formControlName="duracion"> 
                               <label for="duracion_2" class="custom-control-label">1 hora</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_3" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h30m"> 
+                              <input name="duracion" id="duracion_3" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h30m" formControlName="duracion"> 
                               <label for="duracion_3" class="custom-control-label">1 hora 30 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_4" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="2h"> 
+                              <input name="duracion" id="duracion_4" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="2h" formControlName="duracion"> 
                               <label for="duracion_4" class="custom-control-label">2 horas</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_5" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="3h"> 
+                              <input name="duracion" id="duracion_5" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="3h" formControlName="duracion"> 
                               <label for="duracion_5" class="custom-control-label">3 horas</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_6" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="4h"> 
+                              <input name="duracion" id="duracion_6" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="4h" formControlName="duracion"> 
                               <label for="duracion_6" class="custom-control-label">4 horas</label>
                             </div>
                           </div> 
@@ -87,35 +93,35 @@
                       <!-- capacidad por bloque -->
                       <hr>
                       <div class="form-group">
-                        <label>Capacidad por bloque</label> 
+                        <h3>Capacidad por bloque</h3>
                         <div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="capacidad" id="capacidad_0" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="1" required="required"> 
+                              <input name="capacidad_bloque" id="capacidad_0" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="1" required="required" formControlName="capacidad_bloque">
                               <label for="capacidad_0" class="custom-control-label">1</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="capacidad" id="capacidad_1" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="2" required="required"> 
+                              <input name="capacidad_bloque" id="capacidad_1" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="2" required="required" formControlName="capacidad_bloque"> 
                               <label for="capacidad_1" class="custom-control-label">2</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="capacidad" id="capacidad_2" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="3" required="required"> 
+                              <input name="capacidad_bloque" id="capacidad_2" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="3" required="required" formControlName="capacidad_bloque"> 
                               <label for="capacidad_2" class="custom-control-label">3</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="capacidad" id="capacidad_3" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="4" required="required"> 
+                              <input name="capacidad_bloque" id="capacidad_3" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="4" required="required" formControlName="capacidad_bloque"> 
                               <label for="capacidad_3" class="custom-control-label">4</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="capacidad" id="capacidad_4" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="5" required="required"> 
+                              <input name="capacidad_bloque" id="capacidad_4" type="radio" aria-describedby="capacidadHelpBlock" class="custom-control-input" value="5" required="required" formControlName="capacidad_bloque"> 
                               <label for="capacidad_4" class="custom-control-label">5</label>
                             </div>
                           </div> 
@@ -123,44 +129,24 @@
                         </div>
                       </div>
 
-                      <!-- dias habiles -->
-                      <hr>
-                      <div class="form-group">
-                        <div *ngFor="let data of dias">
-                            <input type="checkbox" (change)="onChange(data.dia, $event)">{{data.dia}}<br>
-                        </div>
-                      </div> 
-
-                      <!-- dias habiles -->
-                      <hr>
-                      <div class="form-group">
-                        <div *ngFor="let dia of formulario.value.diasSeleccionados">
-                          <div>
-                            <label>{{dia}}</label>
-                          </div>
-                          <label for="hora_inicio">Hora de inicio:</label>
-                          <input type="time" [(ngModel)]="time" id="hora_inicio">
-
-                          <label for="hora_termino">Hora de término:</label>
-                          <input type="time" [(ngModel)]="time" id="hora_termino">
-                        </div>
-                      </div>
-
                       <!-- valor -->
+                      <hr>
                       <div class="form-group">
-                        <label for="valor">Valor</label> 
+                        <h3>Valor</h3>
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="fa fa-dollar"></i>
                             </div>
                           </div> 
-                          <input id="valor" name="valor" placeholder="Ej: 2500" type="text" class="form-control" required="required">
+                          <input id="valor" name="valor" placeholder="Ej: 2500" type="text" class="form-control" required="required" class="form-control" formControlName="valor_base">
+                        </div>
+                        <div *ngIf="formulario.controls['valor_base'].invalid && (formulario.controls['valor_base'].touched || formulario.controls['valor_base'].dirty)" class="alert alert-danger">
+                          <div *ngIf="formulario.controls['valor_base'].hasError('required')">Campo es obligatorio</div>
                         </div>
                       </div> 
 
                       <!-- boton agregar -->
-                      <hr>
                       <div class="form-group">
                         <button name="submit" type="submit" class="btn btn-primary">Agregar</button>
                       </div>

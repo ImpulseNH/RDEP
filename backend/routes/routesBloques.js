@@ -25,6 +25,17 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.get('/servicio/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const bloques = await service.getAllByServicio(id);
+        res.status(200).json(bloques);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
@@ -69,6 +80,18 @@ router.put('/:id', async (req, res, next) => {
         }
     
         await service.update(id, bloque.fecha, bloque.hora_inicio, bloque.hora_termino, bloque.disponible, bloque.valor, bloque.id_servicio);
+        res.status(200).send(true);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.put('/disponibilidad/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        disponible = req.body.disponible;
+
+        await service.updateAvailability(id, disponible);
         res.status(200).send(true);
     } catch (error) {
         next(error);

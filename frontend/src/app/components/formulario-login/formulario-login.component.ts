@@ -4,12 +4,15 @@ import { Router } from '@angular/router';
 
 import { UsuarioService } from '../../services/usuario/usuario.service';
 
+declare var window:any;
+
 @Component({
   selector: 'app-formulario-login',
   templateUrl: './formulario-login.component.html',
   styleUrls: ['./formulario-login.component.scss']
 })
 export class FormularioLoginComponent implements OnInit {
+  modal: any;
 
   formulario:FormGroup;
   registro:boolean=false;
@@ -21,7 +24,6 @@ export class FormularioLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
   
   validar(){
@@ -30,20 +32,31 @@ export class FormularioLoginComponent implements OnInit {
       contraseña: this.formulario.controls['clave'].value
     }
 
-    this.servicioUsuario.login(datos).subscribe(rta=>{
+    this.servicioUsuario.login(datos).subscribe(
+      rta=>{
       if(rta == true) {
         this.servicioUsuario.saveUsuarioLocalStorage(datos.email);
-        this.servicioUsuario.sendLoginData(true);
 
         this.servicioUsuario.isAdmin(datos).subscribe(rta=>{
-          if(rta == true)
+          if(rta == true) {
+            this.servicioUsuario.sendLoginData(true, true);
             this.router.navigate(['/admin']);
-          else
+          }
+          else {
             this.router.navigate(['/inicio']);
+            this.servicioUsuario.sendLoginData(true, false);
+          }
         })
       }
-      else
-        alert("Error");
+    }, error=>{
+      this.modal = new window.bootstrap.Modal(
+        document.getElementById("modalError")
+      );
+      this.modal.show();
     })
+  }
+
+  close() {
+    this.modal.hide();
   }
 }

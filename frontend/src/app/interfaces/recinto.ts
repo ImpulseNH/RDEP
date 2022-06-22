@@ -1,4 +1,5 @@
 export interface Recinto {
-    nombre: string;
+    _id: number;
+    nombre_recinto: string;
     direccion: string;
 }

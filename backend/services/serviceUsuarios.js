@@ -13,10 +13,7 @@ class ServicioUsuarios {
                    FROM usuarios u, perfiles p
                    WHERE u.id_perfil = p._id`;
     const rta = await this.pool.query(query);
-    if(rta.rowCount == 0)
-      throw boom.notFound("No hay usuarios en el sistema");
-    else
-      return rta.rows;
+    return rta.rows;
   }
 
   async getOneByID(id) {
@@ -27,7 +24,27 @@ class ServicioUsuarios {
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ningún usuario con esa id");
     else
-      return rta.rows;
+      return rta.rows[0];
+  }
+
+  async getAllClientes() {
+    const query = `SELECT u._id, u.nombre_completo, u.alias_, u.rut, u.telefono, u.email, p.tipo
+                   FROM usuarios u
+                   INNER JOIN perfiles p ON (u.id_perfil = p._id)
+                   WHERE p.tipo = 'Cliente'`;
+    const rta = await this.pool.query(query);
+    return rta.rows;
+  }
+
+  async getIdByEmail(email) {
+    const query = `SELECT u._id
+                   FROM usuarios u
+                   WHERE u.email = $1`;
+    const rta = await this.pool.query(query, [email]);
+    if(rta.rowCount == 0)
+      throw boom.notFound("No se encontró ningún usuario con ese email");
+    else
+      return rta.rows[0];
   }
 
   async getProfile(email) {

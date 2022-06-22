@@ -10,10 +10,7 @@ class ServicioPerfiles {
   async getAll() {
     const query = 'SELECT * FROM perfiles';
     const rta = await this.pool.query(query);
-    if(rta.rowCount == 0)
-      throw boom.notFound("No hay perfiles en el sistema");
-    else
-      return rta.rows;
+    return rta.rows;
   }
 
   async getOneByID(id) {

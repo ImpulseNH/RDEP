@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Recinto } from 'src/app/interfaces/recinto';
 
 import { RecintoService } from '../../services/recinto/recinto.service';
 
@@ -19,7 +18,7 @@ export class FormularioAgregarRecintoComponent implements OnInit {
   constructor(private fb:FormBuilder, private servicioRecinto:RecintoService, private router:Router) {
     this.formulario=this.fb.group({
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      direccion:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      direccion:['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
     });
 
 
@@ -30,8 +29,8 @@ export class FormularioAgregarRecintoComponent implements OnInit {
   }
 
   validar(){
-    let recinto: Recinto =  {
-      nombre: this.formulario.controls['nombre'].value,
+    let recinto = {
+      nombre_recinto: this.formulario.controls['nombre'].value,
       direccion: this.formulario.controls['direccion'].value
     }
     
@@ -42,5 +41,4 @@ export class FormularioAgregarRecintoComponent implements OnInit {
         alert("Error")
     })
   }
-} 
-
+}

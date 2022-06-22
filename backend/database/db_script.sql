@@ -36,12 +36,12 @@ CREATE TABLE usuarios(
 DROP TABLE IF EXISTS recintos CASCADE;
 CREATE TABLE recintos(
 	_id SERIAL NOT NULL,
-	nombre VARCHAR(25) NOT NULL,
+	nombre_recinto VARCHAR(25) NOT NULL,
 	direccion VARCHAR(100) NOT NULL,
 	
 	CONSTRAINT pk_recintos PRIMARY KEY(_id),
 
-	CONSTRAINT uq_recintos_nombre UNIQUE(nombre)
+	CONSTRAINT uq_recintos_nombre UNIQUE(nombre_recinto)
 );
 
 DROP TABLE IF EXISTS servicios CASCADE;

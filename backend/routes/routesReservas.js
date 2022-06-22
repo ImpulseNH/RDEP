@@ -31,8 +31,8 @@ router.post('/', async (req, res, next) => {
         const reserva = {
             fecha_reserva: body.fecha_reserva,
             valor: body.valor,
-            id_usuario: body.usuario,
-            id_bloque: body.bloque
+            id_usuario: body.id_usuario,
+            id_bloque: body.id_bloque
         }
     
         await service.add(reserva.fecha_reserva, reserva.valor, reserva.id_usuario, reserva.id_bloque);

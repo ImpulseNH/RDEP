@@ -5,7 +5,7 @@
 
         <!--correo -->
         <div class="form-group">
-            <label for="email">Email</label> 
+            <h3>Email</h3>
             <div class="input-group">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -22,7 +22,7 @@
 
         <!-- password -->
         <div class="form-group">
-            <label for="contraseña">Contraseña</label> 
+            <h3>Contraseña</h3>
             <div class="input-group">
                 <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -42,4 +42,26 @@
             <button [disabled]="!formulario.valid" type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </div>
     </form>
+</div>
+
+<!-- Modal Error -->
+<div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalError" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Error</h5>
+        <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            Los datos ingresados no corresponden a algún usuario del Sistema<br>
+            <br>
+            Verifica que los datos sean correctos
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+        </div>
+    </div>
+    </div>
 </div>

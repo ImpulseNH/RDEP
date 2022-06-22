@@ -29,11 +29,11 @@ router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
         const recinto = {
-            nombre: body.nombre,
+            nombre_recinto: body.nombre_recinto,
             direccion: body.direccion
         }
     
-        await service.add(recinto.nombre, recinto.direccion);
+        await service.add(recinto.nombre_recinto, recinto.direccion);
         res.status(201).send(true);
     } catch (error) {
         next(error);
@@ -56,11 +56,11 @@ router.put('/:id', async (req, res, next) => {
         const { id } = req.params;
         const body = req.body;
         const recinto = {
-            nombre: body.nombre,
+            nombre_recinto: body.nombre_recinto,
             direccion: body.direccion
         }
     
-        await service.update(id, recinto.nombre, recinto.direccion);
+        await service.update(id, recinto.nombre_recinto, recinto.direccion);
         res.status(200).send(true);
     } catch (error) {
         next(error);

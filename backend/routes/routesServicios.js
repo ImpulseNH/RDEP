@@ -25,6 +25,17 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.get('/recinto/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const servicios = await service.getAllByRecinto(id);
+        res.status(200).json(servicios);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
@@ -33,7 +44,7 @@ router.post('/', async (req, res, next) => {
             duracion: body.duracion,
             capacidad_bloque: body.capacidad_bloque,
             valor_base: body.valor_base,
-            recinto: body.recinto
+            recinto: body.nombre_recinto
         }
     
         await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
@@ -63,7 +74,7 @@ router.put('/:id', async (req, res, next) => {
             duracion: body.duracion,
             capacidad_bloque: body.capacidad_bloque,
             valor_base: body.valor_base,
-            recinto: body.recinto
+            recinto: body.nombre_recinto
         }
     
         await service.update(id, servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);

@@ -8,18 +8,17 @@ import { Component, OnInit } from '@angular/core';
 export class LoginScreenComponent implements OnInit {
 
   registro:boolean=false;
+  
   constructor() {
-
   }
 
   ngOnInit(): void {
   }
 
-
-
   registrarse(){
     this.registro=true;
   }
+
   volverALogin(){
     this.registro=false;
   }

@@ -3,7 +3,7 @@
     <div class="card-img-overlay">
         <h1 class="card-title">RECINTOS DEPORTIVOS</h1>
         <p class="card-text">Servicios que se realizan en el recinto</p>
-        <a href="/reservas" class="btn btn-primary">Reservar</a>
+        <button class="btn btn-primary" type="button" (click)="reservar()">Reservar</button>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
                     <h1 class="card-title">CANCHA 1</h1>
                     <p class="card-text">Servicios que se realizan en el recinto</p>
                     <p><i class="fa-solid fa-route"></i> Ubicación</p>
-                    <a href="#" class="btn btn-primary">Reservar</a>
+                    <button class="btn btn-primary" type="button" (click)="reservar()">Reservar</button>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <h1 class="card-title">CANCHA 2</h1>
                     <p class="card-text">Servicios que se realizan en el recinto</p>
                     <p><i class="fa-solid fa-route"></i> Ubicación</p>
-                    <a href="#" class="btn btn-primary">Reservar</a>
+                    <button class="btn btn-primary" type="button" (click)="reservar()">Reservar</button>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
 
                         <!-- nombre -->
                         <div class="form-group">
-                            <label for="nombre">Nombre Completo</label> 
+                            <h3>Nombre Completo</h3>
                             <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
@@ -103,7 +103,7 @@
                         
                         <!-- telefono -->
                         <div class="form-group">
-                            <label for="telefono">Teléfono</label> 
+                            <h3>Teléfono</h3>
                             <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-phone"></i>+56
@@ -119,7 +119,7 @@
 
                         <!--correo -->
                         <div class="form-group">
-                            <label for="email">Email</label> 
+                            <h3>Email</h3>
                             <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">

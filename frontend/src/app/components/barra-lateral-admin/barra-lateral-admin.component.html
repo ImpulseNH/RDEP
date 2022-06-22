@@ -1,104 +1,276 @@
-<div class="accordion" id="accordionPanelsStayOpenExample">
-    <div class="accordion-item"  >
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                Clientes
-            </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" >
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <a id="boton" [routerLink]="['agregarcli']" routerLinkActive="router-link-active"  class="btn btn-outline-secondary" type="button">Agregar nuevo cliente</a>
-            </div>
+<div id="wrapper">
 
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Clientes</h1>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Listado de Clientes
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-hover">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>RUT</th>
-                                    <th>Nombre Completo</th>
-                                    <th>Alias</th>
-                                    <th>Teléfono</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let cliente of clientes">
-                                    <td>{{cliente.rut}}</td>
-                                    <td>{{cliente.nombre_completo}}</td>
-                                    <td>{{cliente.alias_}}</td>
-                                    <td>{{cliente.telefono}}</td>
-                                    <!-- botón editar -->
-                                    <td><button class="btn btn-outline-secondary" type="button">Editar</button></td>
-
-                                    <!-- botón eliminar -->
-                                    <td><button class="btn btn-outline-secondary" type="button">Eliminar</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        
-
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li>
+                <a (click)="scrollTo('toClientes')">Clientes</a>
+            </li>
+            <li>
+                <a (click)="scrollTo('toRecintos')">Recintos</a>
+            </li>
+            <li>
+                <a (click)="scrollTo('toServicios')">Servicios</a>
+            </li>
+            <li>
+                <a (click)="scrollTo('toReservas')">Reservas</a>
+            </li>
+        </ul>
     </div>
-    <div class="accordion-item"  >
-        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                Recintos
-            </button>
-        </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo" >
-            <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <button id="boton" [routerLink]="['agregarr']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo recinto</button>
-            </div>
 
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Recintos</h1>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Listado de Recintos
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-hover">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Nombre Recinto</th>
-                                    <th>Dirección</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let recinto of recintos">
-                                    <td>{{recinto.nombre}}</td>
-                                    <td>{{recinto.direccion}}</td>
-                                    <td><button  class="btn btn-outline-secondary" type="button">Editar</button></td>
-                                    <td><button  class="btn btn-outline-secondary" type="button">Eliminar</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <!-- Clientes -->
+    <div class="card mb-4" id="toClientes">
+
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Clientes</h1>
+            <div class="card mb-4">
             </div>
         </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-            Servicios
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-            <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-                <button id="boton" [routerLink]="['agregars']" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Agregar nuevo servicio</button>
-            </div>
 
+        <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
+            <a id="boton" [routerLink]="['agregar-cliente']" routerLinkActive="router-link-active"  class="btn btn-primary" type="button">Agregar nuevo cliente</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre Completo</th>
+                        <th>Alias</th>
+                        <th>Teléfono</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes">
+                        <td>{{cliente.rut}}</td>
+                        <td>{{cliente.nombre_completo}}</td>
+                        <td>{{cliente.alias_}}</td>
+                        <td>{{cliente.telefono}}</td>
+                        <!-- botón editar -->
+                        <td>
+                            <a id="boton" [routerLink]="['editar-cliente', cliente._id]" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Editar</a>
+                        </td>
+
+                        <!-- botón eliminar -->
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalEliminarCliente" (click)="modalEliminarCliente(cliente)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Recintos -->
+    <div class="card mb-4" id="toRecintos">
+
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Recintos</h1>
+            <div class="card mb-4">
+            </div>
+        </div>
+
+        <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
+            <a id="boton" [routerLink]="['agregar-recinto']" routerLinkActive="router-link-active" class="btn btn-primary" type="button">Agregar nuevo recinto</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre Recinto</th>
+                        <th>Dirección</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recinto of recintos">
+                        <td>{{recinto.nombre_recinto}}</td>
+                        <td>{{recinto.direccion}}</td>
+                        <td>
+                            <a id="boton" [routerLink]="['editar-recinto', recinto._id]" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Editar</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalEliminarRecinto" (click)="modalEliminarRecinto(recinto)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Servicios -->
+    <div class="card mb-4" id="toServicios">
+
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Servicios</h1>
+            <div class="card mb-4">
+            </div>
+        </div>
+
+        <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
+            <a id="boton" [routerLink]="['agregar-servicio']" routerLinkActive="router-link-active"  class="btn btn-primary" type="button">Agregar nuevo servicio</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre del Servicio</th>
+                        <th>Recinto Asociado</th>
+                        <th>Duración</th>
+                        <th>Capacidad por bloque</th>
+                        <th>Bloques de Horarios</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let servicio of servicios">
+                        <td>{{servicio.nombre}}</td>
+                        <td>{{servicio.nombre_recinto}}</td>
+                        <td>{{servicio.duracion}}</td>
+                        <td>{{servicio.capacidad_bloque}}</td>
+                        <td>
+                            <ng-container *ngFor="let bloque of bloques">
+                                <ng-container *ngIf="bloque.id_servicio == servicio._id">
+                                    {{bloque.fecha | date:'d/M/y'}}<br>
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <a id="boton" [routerLink]="['añadir-bloque', servicio._id]" routerLinkActive="router-link-active" class="btn btn-primary" type="button">Añadir Bloque</a>
+                        </td>
+                        <td><button class="btn btn-outline-secondary" type="button">Editar</button></td>
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalEliminarServicio" (click)="modalEliminarServicio(servicio)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Reservas -->
+    <div class="card mb-4" id="toReservas">
+
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Reservas</h1>
+            <div class="card mb-4">
+            </div>
+        </div>
+
+        <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
+            <a id="boton" [routerLink]="['agregarres']" routerLinkActive="router-link-active"  class="btn btn-primary" type="button">Realizar nueva reserva</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Disponible</th>
+                        <th>campo2</th>
+                        <th>campo3</th>
+                        <th>campo4</th>
+                        <th>campo5</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-outline-secondary" type="button">Reservar</button></td>
+                        <td><button class="btn btn-outline-secondary" type="button">Cancelar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar Cliente -->
+    <div class="modal fade" id="modalEliminarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cliente</h5>
+            <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" *ngIf="clienteActual != null">
+                ¿Estás seguro que quieres eliminar el cliente <b>{{clienteActual.nombre_completo}}</b>?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="confirmarEliminarCliente()">Confirmar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- Modal Eliminar Recinto -->
+    <div class="modal fade" id="modalEliminarRecinto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Recinto</h5>
+            <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" *ngIf="recintoActual != null">
+                ¿Estás seguro que quieres eliminar el recinto <b>{{recintoActual.nombre_recinto}}</b>?
+                <br><br>
+                Se eliminaran también todos los servicios asociados a este recinto.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="confirmarEliminarRecinto()">Confirmar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar Servicio -->
+    <div class="modal fade" id="modalEliminarServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Servicio</h5>
+            <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" *ngIf="servicioActual != null">
+                ¿Estás seguro que quieres eliminar el servicio <b>{{servicioActual.nombre}}</b>?
+                <br><br>
+                Se eliminaran también todos los bloques de horarios asociados a este servicio.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="confirmarEliminarServicio()">Confirmar</button>
+            </div>
+        </div>
         </div>
     </div>
 </div>

@@ -27,6 +27,9 @@ import { FormularioAgregarServicioComponent } from './components/formulario-agre
 import { FormularioAgregarRecintoComponent } from './components/formulario-agregar-recinto/formulario-agregar-recinto.component';
 import { FormularioContactoComponent } from './components/formulario-contacto/formulario-contacto.component';
 import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
+import { FormularioEditarRecintoComponent } from './components/formulario-editar-recinto/formulario-editar-recinto.component';
+import { FormularioEditarClienteComponent } from './components/formulario-editar-cliente/formulario-editar-cliente.component';
+import { FormularioAgregarBloqueComponent } from './components/formulario-agregar-bloque/formulario-agregar-bloque.component';
 
 
 
@@ -46,7 +49,10 @@ import { inicioScreenComponent } from './screens/inicio/inicio-screen.component'
     FormularioAgregarRecintoComponent,
     ReservasComponent,
     FormularioContactoComponent,
-    inicioScreenComponent
+    inicioScreenComponent,
+    FormularioEditarRecintoComponent,
+    FormularioEditarClienteComponent,
+    FormularioAgregarBloqueComponent,
   ],
   imports: [
     BrowserModule,

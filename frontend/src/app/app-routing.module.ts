@@ -8,18 +8,23 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { ReservasComponent } from './components/reservas/reservas.component';
 import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
-
+import { FormularioEditarRecintoComponent } from './components/formulario-editar-recinto/formulario-editar-recinto.component';
+import { FormularioEditarClienteComponent } from './components/formulario-editar-cliente/formulario-editar-cliente.component';
+import { FormularioAgregarBloqueComponent } from './components/formulario-agregar-bloque/formulario-agregar-bloque.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginScreenComponent},
   {path:'registro', component: RegistroScreenComponent},
   {path:'admin', component: BarraLateralAdminComponent},
-  {path: 'inicio', component:inicioScreenComponent},
-  {path:'admin/agregarcli', component: FormularioAgregarClienteComponent},
-  {path:'admin/agregarr', component: FormularioAgregarRecintoComponent},
-  {path: 'admin/agregars', component: FormularioAgregarServicioComponent},
-  {path: 'reservas', component: ReservasComponent}
+  {path:'inicio', component:inicioScreenComponent},
+  {path:'admin/agregar-cliente', component: FormularioAgregarClienteComponent},
+  {path:'admin/editar-cliente/:id', component: FormularioEditarClienteComponent},
+  {path:'admin/agregar-recinto', component: FormularioAgregarRecintoComponent},
+  {path:'admin/editar-recinto/:id', component: FormularioEditarRecintoComponent},
+  {path:'admin/agregar-servicio', component: FormularioAgregarServicioComponent},
+  {path:'admin/añadir-bloque/:id', component:FormularioAgregarBloqueComponent},
+  {path:'reservas', component: ReservasComponent}
 ]
 
 @NgModule({
