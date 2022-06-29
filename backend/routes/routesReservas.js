@@ -29,13 +29,17 @@ router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
         const reserva = {
-            fecha_reserva: body.fecha_reserva,
+            nombre_servicio: body.nombre_servicio,
+            fecha: body.fecha,
+            hora_inicio: body.hora_inicio,
+            hora_termino: body.hora_termino,
             valor: body.valor,
             id_usuario: body.id_usuario,
-            id_bloque: body.id_bloque
+            id_recinto: body.id_recinto,
+            id_servicio: body.id_servicio
         }
     
-        await service.add(reserva.fecha_reserva, reserva.valor, reserva.id_usuario, reserva.id_bloque);
+        await service.add(reserva.nombre_servicio, reserva.fecha, reserva.hora_inicio, reserva.hora_termino, reserva.valor, reserva.id_usuario, reserva.id_recinto, reserva.id_servicio);
         res.status(201).send(true);
     } catch (error) {
         next(error);
@@ -56,15 +60,9 @@ router.delete('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
-        const body = req.body;
-        const reserva = {
-            fecha_reserva: body.fecha_reserva,
-            valor: body.valor,
-            id_usuario: body.usuario,
-            id_bloque: body.bloque
-        }
+        const valor = req.body.valor;
     
-        await service.update(id, reserva.fecha_reserva, reserva.valor, reserva.id_usuario, reserva.id_bloque);
+        await service.updatePrice(id, valor);
         res.status(200).send(true);
     } catch (error) {
         next(error);

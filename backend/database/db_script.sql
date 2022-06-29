@@ -26,6 +26,7 @@ CREATE TABLE usuarios(
 	CONSTRAINT uq_usuarios_alias UNIQUE(alias_),
 	CONSTRAINT uq_usuarios_rut UNIQUE(rut),
 	CONSTRAINT uq_usuarios_telefono UNIQUE(telefono),
+	CONSTRAINT uq_usuarios_email UNIQUE(email),
 
 	CONSTRAINT fk_usuarios_perfiles FOREIGN KEY(id_perfil)
 	REFERENCES perfiles(_id)
@@ -61,19 +62,17 @@ CREATE TABLE servicios(
 	ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS bloques_horario CASCADE;
-CREATE TABLE bloques_horarios(
+DROP TABLE IF EXISTS dias CASCADE;
+CREATE TABLE dias(
 	_id SERIAL NOT NULL,
-	fecha DATE NOT NULL,
+	dia VARCHAR(10) NOT NULL,
 	hora_inicio TIME NOT NULL,
 	hora_termino TIME NOT NULL,
-	disponible BOOLEAN NOT NULL,
-	valor INT NOT NULL,
 	id_servicio SERIAL NOT NULL,
-	
-	CONSTRAINT pk_bloques_horarios PRIMARY KEY(_id),
-	
-	CONSTRAINT fk_bloquesHorarios_servicios FOREIGN KEY(id_servicio)
+
+	CONSTRAINT pk_dias PRIMARY KEY(_id),
+
+	CONSTRAINT fk_dias_servicios FOREIGN KEY(id_servicio)
 	REFERENCES servicios(_id)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
@@ -82,10 +81,14 @@ CREATE TABLE bloques_horarios(
 DROP TABLE IF EXISTS reservas CASCADE;
 CREATE TABLE reservas(
 	_id SERIAL NOT NULL,
-	fecha_reserva DATE NOT NULL,
+	nombre_servicio VARCHAR(25) NOT NULL,
+	fecha DATE NOT NULL,
+	hora_inicio TIME NOT NULL,
+	hora_termino TIME NOT NULL,
 	valor INT NOT NULL,
 	id_usuario SERIAL NOT NULL,
-	id_bloqueHorario SERIAL NOT NULL,
+	id_recinto SERIAL NOT NULL,
+	id_servicio SERIAL NOT NULL,
 	
 	CONSTRAINT pk_reservas PRIMARY KEY(_id),
 	
@@ -93,9 +96,14 @@ CREATE TABLE reservas(
 	REFERENCES usuarios(_id)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE,
+
+	CONSTRAINT fk_reservas_recintos FOREIGN KEY(id_recinto)
+	REFERENCES recintos(_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE,
 	
-	CONSTRAINT fk_reservas_bloquesHorarios FOREIGN KEY(id_bloqueHorario)
-	REFERENCES bloques_horarios(_id)
+	CONSTRAINT fk_reservas_servicios FOREIGN KEY(id_servicio)
+	REFERENCES servicios(_id)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );

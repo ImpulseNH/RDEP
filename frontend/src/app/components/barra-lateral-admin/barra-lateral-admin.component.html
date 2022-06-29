@@ -42,6 +42,7 @@
                         <th>Nombre Completo</th>
                         <th>Alias</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -52,6 +53,7 @@
                         <td>{{cliente.nombre_completo}}</td>
                         <td>{{cliente.alias_}}</td>
                         <td>{{cliente.telefono}}</td>
+                        <td>{{cliente.email}}</td>
                         <!-- botón editar -->
                         <td>
                             <a id="boton" [routerLink]="['editar-cliente', cliente._id]" routerLinkActive="router-link-active" class="btn btn-outline-secondary" type="button">Editar</a>
@@ -131,8 +133,7 @@
                         <th>Recinto Asociado</th>
                         <th>Duración</th>
                         <th>Capacidad por bloque</th>
-                        <th>Bloques de Horarios</th>
-                        <th></th>
+                        <th>Horarios</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -141,17 +142,14 @@
                     <tr *ngFor="let servicio of servicios">
                         <td>{{servicio.nombre}}</td>
                         <td>{{servicio.nombre_recinto}}</td>
-                        <td>{{servicio.duracion}}</td>
+                        <td>{{servicio.duracion / 60}} h</td>
                         <td>{{servicio.capacidad_bloque}}</td>
                         <td>
-                            <ng-container *ngFor="let bloque of bloques">
-                                <ng-container *ngIf="bloque.id_servicio == servicio._id">
-                                    {{bloque.fecha | date:'d/M/y'}}<br>
+                            <ng-container *ngFor="let dia of dias">
+                                <ng-container *ngIf="dia.id_servicio == servicio._id">
+                                    <b>{{dia.dia}}:</b> {{dia.hora_inicio.slice(0,-3)}} - {{dia.hora_termino.slice(0,-3)}}<br>
                                 </ng-container>
                             </ng-container>
-                        </td>
-                        <td>
-                            <a id="boton" [routerLink]="['añadir-bloque', servicio._id]" routerLinkActive="router-link-active" class="btn btn-primary" type="button">Añadir Bloque</a>
                         </td>
                         <td><button class="btn btn-outline-secondary" type="button">Editar</button></td>
                         <td>
@@ -175,32 +173,37 @@
         </div>
 
         <div id="tipoboton_agregar" class="d-grid gap-2 col-6 mx-auto">
-            <a id="boton" [routerLink]="['agregarres']" routerLinkActive="router-link-active"  class="btn btn-primary" type="button">Realizar nueva reserva</a>
+            <a id="boton" [routerLink]="['reservar']" routerLinkActive="router-link-active"  class="btn btn-primary" type="button">Realizar nueva reserva</a>
         </div>
 
         <div class="card-body">
             <table class="table table-sm table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Disponible</th>
-                        <th>campo2</th>
-                        <th>campo3</th>
-                        <th>campo4</th>
-                        <th>campo5</th>
-                        <th></th>
+                        <th>Cliente</th>
+                        <th>Recinto</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Hora de inicio</th>
+                        <th>Hora de término</th>
+                        <th>Valor</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="btn btn-outline-secondary" type="button">Reservar</button></td>
-                        <td><button class="btn btn-outline-secondary" type="button">Cancelar</button></td>
+                    <tr *ngFor="let reserva of reservas">
+                        <td>{{reserva.nombre_completo}}</td>
+                        <td>{{reserva.nombre_recinto}}</td>
+                        <td>{{reserva.nombre_servicio}}</td>
+                        <td>{{reserva.fecha | date:'d/M/y'}}</td>
+                        <td>{{reserva.hora_inicio.slice(0,-3)}}</td>
+                        <td>{{reserva.hora_termino.slice(0,-3)}}</td>
+                        <td>{{reserva.valor}}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalCancelarReserva" (click)="modalCancelarReserva(reserva)">
+                                Cancelar
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -241,7 +244,7 @@
             <div class="modal-body" *ngIf="recintoActual != null">
                 ¿Estás seguro que quieres eliminar el recinto <b>{{recintoActual.nombre_recinto}}</b>?
                 <br><br>
-                Se eliminaran también todos los servicios asociados a este recinto.
+                Se eliminaran también todos los servicios asociados a este recinto
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
@@ -264,11 +267,42 @@
             <div class="modal-body" *ngIf="servicioActual != null">
                 ¿Estás seguro que quieres eliminar el servicio <b>{{servicioActual.nombre}}</b>?
                 <br><br>
-                Se eliminaran también todos los bloques de horarios asociados a este servicio.
+                Se eliminarán también todas las reservas realizadas a este servicio
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
             <button type="button" class="btn btn-primary" (click)="confirmarEliminarServicio()">Confirmar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Cancelar Reserva -->
+    <div class="modal fade" id="modalCancelarReserva" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Reserva</h5>
+            <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" *ngIf="reservaActual != null">
+                Datos de la reserva seleccionada:<br>
+                <br>
+                <b>Cliente: </b>{{reservaActual.nombre_completo}}<br>
+                <b>Recinto: </b>{{reservaActual.nombre_recinto}}<br>
+                <b>Servicio: </b>{{reservaActual.nombre_servicio}}<br>
+                <b>Fecha: </b>{{reservaActual.fecha | date:'d/M/y'}}<br>
+                <b>Hora de inicio: </b>{{reservaActual.hora_inicio.slice(0,-3)}}<br>
+                <b>Hora de término: </b>{{reservaActual.hora_termino.slice(0,-3)}}<br>
+                <b>Valor: </b>{{reservaActual.valor}}<br>
+                <br>
+                ¿Estás seguro que quieres cancelar esta reserva?<br>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="confirmarCancelarReserva()">Confirmar</button>
             </div>
         </div>
         </div>

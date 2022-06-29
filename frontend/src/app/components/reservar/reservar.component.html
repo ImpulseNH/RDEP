@@ -3,6 +3,16 @@
 
 <div class="col-lg-8 offset-lg-2">
     <div id="seleccion_atributos">
+        <h4>Selecciona el cliente</h4>
+        <mat-form-field appearance="fill">
+            <mat-label>Cliente</mat-label>
+            <mat-select [(value)]="cliente_seleccionado" (selectionChange)="selectCliente(cliente_seleccionado)">
+                <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+                    {{cliente.nombre_completo}} - {{cliente.alias_}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <h4>Selecciona el recinto</h4>
         <mat-form-field appearance="fill">
             <mat-label>Recinto</mat-label>
@@ -62,6 +72,14 @@
             </tbody>
         </table>
     </div>
+    <div class="col-lg-8 offset-lg-2">
+        <hr class="my-5">
+        <div class="text-center mb-3">
+        </div>
+        <div class="text-center">
+            <button [routerLink]="['/admin']" routerLinkActive="router-link-active"  class="btn btn-secondary">Volver atrás</button>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Reservar -->
@@ -74,18 +92,19 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <div class="modal-body" *ngIf="bloque_seleccionado != null">
-            Resumen de tu reserva:<br>
+        <div class="modal-body" *ngIf="bloque_seleccionado != null && cliente_seleccionado != null">
+            Resumen de la reserva:<br>
             <br>
+            <b>Cliente: </b>{{cliente_seleccionado.nombre_completo}} - {{cliente_seleccionado.alias_}}<br>
             <b>Recinto: </b>{{recinto_seleccionado.nombre_recinto}}<br>
             <b>Servicio: </b>{{servicio_seleccionado.nombre}} {{bloque_seleccionado}}<br>
             <b>Fecha: </b>{{fecha_seleccionada | date:'d/M/y'}}<br>
             <b>Duración: </b>{{servicio_seleccionado.duracion / 60}} h<br>
             <b>Hora de inicio: </b>{{hora_inicio_seleccionada}}<br>
             <b>Hora de término: </b>{{hora_termino_seleccionada}}<br>
-            <b>Valor: </b>{{servicio_seleccionado.valor_base}}<br>
+            <b>Valor: </b><input id="valor" [(ngModel)]="valor" name="valor" placeholder="Ej: 2500" type="text" required="required"><br>
             <br>
-            ¿Estás seguro que quieres reservar este recinto?<br>
+            ¿Estás seguro que quieres realizar esta reserva?<br>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>

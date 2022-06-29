@@ -84,6 +84,23 @@
                     </div>
                   </div> 
 
+                  <!--correo -->
+                  <div class="form-group">
+                    <h3>Email</h3>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-at"></i>
+                        </div>
+                      </div> 
+                      <input id="email" name="email" placeholder="Ej: email@ejemplo.com" type="text" class="form-control" formControlName="email" required="required">
+                    </div>
+                    <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" class="alert alert-danger">
+                      <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
+                      <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
+                    </div>
+                  </div>
+
                   <!-- requiere acceso a la plataforma -->
                   <div class="form-group">
                     <h3>¿Requiere acceso a la plataforma?</h3>
@@ -102,23 +119,6 @@
                       </div>
                     </div>
                   </div> 
-
-                  <!--correo -->
-                  <div class="form-group" *ngIf="accede">
-                    <h3>Email</h3>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="fa fa-at"></i>
-                        </div>
-                      </div> 
-                      <input id="email" name="email" placeholder="Ej: email@ejemplo.com" type="text" class="form-control" formControlName="email" required="required">
-                    </div>
-                    <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].touched || formulario.controls['email'].dirty)" class="alert alert-danger">
-                      <div *ngIf="formulario.controls['email'].hasError('required')">Campo es obligatorio</div>
-                      <div *ngIf="formulario.controls['email'].hasError('email')">Formato de email incorrecto</div>
-                    </div>
-                  </div>
 
                   <!-- boton agregar -->
                   <div class="text-center">

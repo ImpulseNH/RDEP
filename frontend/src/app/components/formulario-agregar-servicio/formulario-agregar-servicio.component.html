@@ -46,43 +46,43 @@
                         <div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_0" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="15m" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_0" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="15" formControlName="duracion"> 
                               <label for="duracion_0" class="custom-control-label">15 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_1" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="30m" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_1" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="30" formControlName="duracion"> 
                               <label for="duracion_1" class="custom-control-label">30 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_2" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_2" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="60" formControlName="duracion"> 
                               <label for="duracion_2" class="custom-control-label">1 hora</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_3" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="1h30m" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_3" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="90" formControlName="duracion"> 
                               <label for="duracion_3" class="custom-control-label">1 hora 30 minutos</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_4" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="2h" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_4" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="120" formControlName="duracion"> 
                               <label for="duracion_4" class="custom-control-label">2 horas</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_5" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="3h" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_5" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="180" formControlName="duracion"> 
                               <label for="duracion_5" class="custom-control-label">3 horas</label>
                             </div>
                           </div>
                           <div class="custom-controls-stacked">
                             <div class="custom-control custom-radio">
-                              <input name="duracion" id="duracion_6" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="4h" formControlName="duracion"> 
+                              <input name="duracion" id="duracion_6" type="radio" aria-describedby="duracionHelpBlock" required="required" class="custom-control-input" value="240" formControlName="duracion"> 
                               <label for="duracion_6" class="custom-control-label">4 horas</label>
                             </div>
                           </div> 
@@ -129,6 +129,31 @@
                         </div>
                       </div>
 
+                      <!-- dias habiles -->
+                      <hr>
+                      <div class="form-group">
+                        <h3>Días Hábiles</h3>
+                        <div *ngFor="let data of dias">
+                            <input type="checkbox" (change)="onChange(data.dia, $event)" required="required" name="dias" formControlName="dias">{{data.dia}}<br>
+                        </div>
+                      </div> 
+
+                      <!-- horario -->
+                      <hr>
+                      <div class="form-group">
+                        <h3>Horarios</h3>
+                        <div *ngFor="let dia of formulario.value.diasSeleccionados">
+                          <div>
+                            <label>{{dia}}</label>
+                          </div>
+                          <label for="hora_inicio">Hora de inicio:</label>
+                          <input [id]="'hora_inicio_' + dia" name="hora_inicio" type="time" step="1800" required="required" formControlName="hora_inicio">
+
+                          <label for="hora_termino">Hora de término:</label>
+                          <input [id]="'hora_termino_' + dia" name="hora_termino" type="time" step="1800" required="required" formControlName="hora_termino">
+                        </div>
+                      </div>
+
                       <!-- valor -->
                       <hr>
                       <div class="form-group">
@@ -148,7 +173,7 @@
 
                       <!-- boton agregar -->
                       <div class="form-group">
-                        <button name="submit" type="submit" class="btn btn-primary">Agregar</button>
+                        <button name="submit" [disabled]="!formulario.valid" type="submit" class="btn btn-primary">Agregar</button>
                       </div>
                 </form>
             </div>

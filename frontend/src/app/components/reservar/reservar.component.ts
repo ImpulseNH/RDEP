@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/interfaces/usuario';
 import { Recinto } from 'src/app/interfaces/recinto';
 import { Servicio } from 'src/app/interfaces/servicio';
 import { Dia } from 'src/app/interfaces/dia';
@@ -13,21 +14,23 @@ import { DiaService } from 'src/app/services/dia/dia.service'
 declare var window:any;
 
 @Component({
-  selector: 'app-reservas',
-  templateUrl: './reservas.component.html',
-  styleUrls: ['./reservas.component.scss']
+  selector: 'app-reservar',
+  templateUrl: './reservar.component.html',
+  styleUrls: ['./reservar.component.scss']
 })
-export class ReservasComponent implements OnInit {
+export class ReservarComponent implements OnInit {
   modal: any;
 
   reservas:Array<Reserva> = [];
 
+  clientes:Array<Usuario> = [];
   recintos:Array<Recinto> = [];
   servicios_recinto:Array<Servicio> = [];
   dias_servicio:Array<Dia> = [];
   dias_validos:Array<number> = [];
   horario:Array<string> = [];
 
+  cliente_seleccionado!: Usuario;
   recinto_seleccionado!: Recinto;
   servicio_seleccionado!: Servicio;
   fecha_seleccionada!: Date;
@@ -35,6 +38,7 @@ export class ReservasComponent implements OnInit {
   hora_inicio_seleccionada!: string;
   hora_termino_seleccionada!: string;
   bloque_seleccionado!: number;
+  valor!: number;
 
   minDate = new Date();
   dateFilter: (date: Date | null) => boolean =
@@ -57,15 +61,22 @@ export class ReservasComponent implements OnInit {
               private servicioServicio:ServicioService,
               private servicioReserva:ReservaService,
               private servicioDia:DiaService) {
+    this.actualizarClientes();
     this.actualizarReservas();
     this.actualizarRecintos();
   }
 
   ngOnInit(): void {
-    
   }
 
   // Actualización de datos
+  // Clientes
+  actualizarClientes() {
+    this.servicioUsuario.obtenerClientes().subscribe(rta=>{
+      this.clientes = rta;
+    })
+  }
+
   // Reservas
   actualizarReservas() {
     this.servicioReserva.obtenerReservas().subscribe(rta=>{
@@ -168,6 +179,10 @@ export class ReservasComponent implements OnInit {
 
   // Detección de cambios
 
+  selectCliente(cliente: Usuario) {
+    this.cliente_seleccionado = cliente;
+  }
+
   selectRecinto(recinto: Recinto) {
     this.recinto_seleccionado = recinto;
     this.actualizarServicios(this.recinto_seleccionado._id);
@@ -196,6 +211,8 @@ export class ReservasComponent implements OnInit {
   }
 
   existeReserva(hora:string, i:number) {
+    console.log(1);
+
     let bloqueActual = {
       hora_inicio: hora,
       hora_termino: this.calcularSiguienteBloque(hora),
@@ -225,37 +242,42 @@ export class ReservasComponent implements OnInit {
     this.hora_inicio_seleccionada = hora;
     this.hora_termino_seleccionada = this.calcularSiguienteBloque(hora);
     this.bloque_seleccionado = i;
+    this.valor = this.servicio_seleccionado.valor_base;
     this.modal = new window.bootstrap.Modal(
       document.getElementById("modalReservar")
     );
-    this.modal.show();
+    if(!this.cliente_seleccionado)
+      alert("Debes seleccionar un cliente")
+    else
+      this.modal.show();
   }
 
   confirmarReserva() {
-    let usuarioActual = {
-      email: this.servicioUsuario.getUsuarioLocalStorage()
+    let reserva = {
+      nombre_servicio: this.servicio_seleccionado.nombre + ' ' + this.bloque_seleccionado,
+      fecha: this.fecha_seleccionada,
+      hora_inicio: this.hora_inicio_seleccionada,
+      hora_termino: this.hora_termino_seleccionada,
+      valor: this.valor,
+      id_usuario: this.cliente_seleccionado._id,
+      id_recinto: this.recinto_seleccionado._id,
+      id_servicio: this.servicio_seleccionado._id
     }
 
-    this.servicioUsuario.obtenerIdConEmail(usuarioActual).subscribe(rta=>{
-      let reserva = {
-        nombre_servicio: this.servicio_seleccionado.nombre + ' ' + this.bloque_seleccionado,
-        fecha: this.fecha_seleccionada,
-        hora_inicio: this.hora_inicio_seleccionada,
-        hora_termino: this.hora_termino_seleccionada,
-        valor: this.servicio_seleccionado.valor_base,
-        id_usuario: rta._id,
-        id_recinto: this.recinto_seleccionado._id,
-        id_servicio: this.servicio_seleccionado._id
-      }
-
-      this.servicioReserva.agregarReserva(reserva).subscribe(rta=>{
+    if(!reserva.valor)
+      alert("Debes ingresar un valor, como mínimo 0");
+    else {
+      this.servicioReserva.agregarReserva(reserva).subscribe(
+      rta=>{
         if(rta == true) {
           this.actualizarReservas();
           this.close();
-          alert("Reserva registrada con éxito. \n ¡Disfruta del servicio!")
+          alert("Reserva registrada con éxito")
         }
+      }, error=>{
+        alert("Debes ingresar un valor válido")
       })
-    })
+    }
   }
 
   close() {

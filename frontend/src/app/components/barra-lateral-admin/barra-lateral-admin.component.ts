@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { Recinto } from 'src/app/interfaces/recinto';
 import { Servicio } from 'src/app/interfaces/servicio';
-import { Bloque } from 'src/app/interfaces/bloque';
+import { Dia } from 'src/app/interfaces/dia';
+import { Reserva } from 'src/app/interfaces/reserva';
 
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { RecintoService } from '../../services/recinto/recinto.service';
 import { ServicioService } from '../../services/servicio/servicio.service';
-import { BloqueService } from 'src/app/services/bloque/bloque.service';
+import { DiaService } from 'src/app/services/dia/dia.service';
+import { ReservaService } from 'src/app/services/reserva/reserva.service';
 
 declare var window:any;
 
@@ -19,16 +21,23 @@ declare var window:any;
 export class BarraLateralAdminComponent implements OnInit {
   modal: any;
 
+  reservas:Array<Reserva> = [];
+
   clientes:Array<Usuario> = [];
   recintos:Array<Recinto> = [];
   servicios:Array<Servicio> = [];
-  bloques:Array<Bloque> = [];
+  dias:Array<Dia> = [];
 
   clienteActual!: Usuario;
   recintoActual!: Recinto;
   servicioActual!: Servicio;
+  reservaActual!: Reserva;
 
-  constructor(private servicioUsuario:UsuarioService, private servicioRecinto:RecintoService, private servicioServicio:ServicioService, private servicioBloque:BloqueService) {
+  constructor(private servicioUsuario:UsuarioService,
+              private servicioRecinto:RecintoService,
+              private servicioServicio:ServicioService,
+              private servicioDia:DiaService,
+              private servicioReserva:ReservaService) {
     this.actualizarDatos();
   }
 
@@ -56,9 +65,13 @@ export class BarraLateralAdminComponent implements OnInit {
       this.servicios = rta;
     })
 
-    // Bloques
-    this.servicioBloque.obtenerBloques().subscribe(rta=>{
-      this.bloques = rta;
+    // Días
+    this.servicioDia.obtenerDias().subscribe(rta=>{
+      this.dias = rta;
+    })
+
+    this.servicioReserva.obtenerReservas().subscribe(rta=>{
+      this.reservas = rta;
     })
   }
 
@@ -76,7 +89,7 @@ export class BarraLateralAdminComponent implements OnInit {
     this.servicioUsuario.eliminarUsuario(this.clienteActual._id).subscribe(rta=>{
       if(rta == true) {
         this.actualizarDatos();
-        this.modal.hide();
+        this.close();
       }
     })
   }
@@ -95,7 +108,7 @@ export class BarraLateralAdminComponent implements OnInit {
     this.servicioRecinto.eliminarRecinto(this.recintoActual._id).subscribe(rta=>{
       if(rta == true) {
         this.actualizarDatos();
-        this.modal.hide();
+        this.close();
       }
     })
   }
@@ -114,10 +127,30 @@ export class BarraLateralAdminComponent implements OnInit {
     this.servicioServicio.eliminarServicio(this.servicioActual._id).subscribe(rta=>{
       if(rta == true) {
         this.actualizarDatos();
-        this.modal.hide();
+        this.close();
       }
     })
   }
+
+  // Eliminar Reserva
+  modalCancelarReserva(reserva: Reserva) {
+    this.modal = new window.bootstrap.Modal(
+      document.getElementById("modalCancelarReserva")
+    );
+    this.reservaActual = reserva;
+    this.modal.show();
+  }
+
+  confirmarCancelarReserva() {
+    this.servicioReserva.cancelarReserva(this.reservaActual._id).subscribe(rta=>{
+      if(rta == true) {
+        this.actualizarDatos();
+        this.close();
+      }
+    })
+  }
+
+  // Extra
 
   close() {
     this.modal.hide();

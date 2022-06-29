@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatInputModule } from '@angular/material/input'; 
 import { MatNativeDateModule } from '@angular/material/core'; 
 import { MatTableModule } from '@angular/material/table';
@@ -29,7 +30,7 @@ import { FormularioContactoComponent } from './components/formulario-contacto/fo
 import { inicioScreenComponent } from './screens/inicio/inicio-screen.component';
 import { FormularioEditarRecintoComponent } from './components/formulario-editar-recinto/formulario-editar-recinto.component';
 import { FormularioEditarClienteComponent } from './components/formulario-editar-cliente/formulario-editar-cliente.component';
-import { FormularioAgregarBloqueComponent } from './components/formulario-agregar-bloque/formulario-agregar-bloque.component';
+import { ReservarComponent } from './components/reservar/reservar.component';
 
 
 
@@ -52,7 +53,7 @@ import { FormularioAgregarBloqueComponent } from './components/formulario-agrega
     inicioScreenComponent,
     FormularioEditarRecintoComponent,
     FormularioEditarClienteComponent,
-    FormularioAgregarBloqueComponent,
+    ReservarComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,9 @@ import { FormularioAgregarBloqueComponent } from './components/formulario-agrega
     FormsModule,
     // NgModel
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

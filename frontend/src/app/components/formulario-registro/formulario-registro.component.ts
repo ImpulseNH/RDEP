@@ -4,12 +4,15 @@ import { Router } from '@angular/router';
 
 import { UsuarioService } from '../../services/usuario/usuario.service';
 
+declare var window:any;
+
 @Component({
   selector: 'app-formulario-registro',
   templateUrl: './formulario-registro.component.html',
   styleUrls: ['./formulario-registro.component.scss']
 })
 export class FormularioRegistroComponent implements OnInit {
+  modal: any;
 
   formulario:FormGroup;
   registro:boolean=false;
@@ -39,12 +42,22 @@ export class FormularioRegistroComponent implements OnInit {
     }
 
     if (this.formulario.valid) {
-      this.servicioUsuario.registrarUsuario(cliente).subscribe(rta=>{
+      this.servicioUsuario.registrarUsuario(cliente).subscribe(
+        rta=>{
         if(rta == true)
           this.registro = true;
         else
           alert("Error")
+      }, error=>{
+        this.modal = new window.bootstrap.Modal(
+          document.getElementById("modalError")
+        );
+        this.modal.show();
       })
     }
+  }
+
+  close() {
+    this.modal.hide();
   }
 }

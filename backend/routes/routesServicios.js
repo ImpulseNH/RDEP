@@ -47,8 +47,8 @@ router.post('/', async (req, res, next) => {
             recinto: body.nombre_recinto
         }
     
-        await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
-        res.status(201).send(true);
+        rta = await service.add(servicio.nombre, servicio.duracion, servicio.capacidad_bloque, servicio.valor_base, servicio.recinto);
+        res.status(201).send(rta);
     } catch (error) {
         next(error);
     }

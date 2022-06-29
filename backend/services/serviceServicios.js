@@ -36,9 +36,11 @@ class ServicioServicios {
 
   async add(nombre, duracion, capacidad_bloque, valor_base, recinto) {
     const query = `INSERT INTO servicios(nombre, duracion, capacidad_bloque, valor_base, id_recinto) 
-                   VALUES($1, $2, $3, $4, (SELECT _id FROM recintos WHERE nombre_recinto = $5))`;
+                   VALUES($1, $2, $3, $4, (SELECT _id FROM recintos WHERE nombre_recinto = $5))
+                   RETURNING _id`;
     try {
-      await this.pool.query(query, [nombre, duracion, capacidad_bloque, valor_base, recinto]);
+      const rta = await this.pool.query(query, [nombre, duracion, capacidad_bloque, valor_base, recinto]);
+      return rta.rows[0];
     }
     catch(error) {
       throw boom.badRequest("Error al intentar agregar el servicio. Verifique que el servicio ya exista");

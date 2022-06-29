@@ -5,6 +5,7 @@ import { Recinto } from 'src/app/interfaces/recinto';
 
 import { RecintoService } from 'src/app/services/recinto/recinto.service';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
+import { DiaService } from 'src/app/services/dia/dia.service';
 
 @Component({
   selector: 'app-formulario-agregar-servicio',
@@ -27,13 +28,21 @@ export class FormularioAgregarServicioComponent implements OnInit {
 
   numberRegEx = /\-?\d*\.?\d{1,2}/;
 
-  constructor(private fb:FormBuilder, private router:Router, private servicioRecinto:RecintoService, private servicioServicio:ServicioService) {
+  constructor(private fb:FormBuilder,
+              private router:Router,
+              private servicioRecinto:RecintoService,
+              private servicioServicio:ServicioService,
+              private servicioDia:DiaService) {
+
     this.formulario=this.fb.group({
       recinto:['',[Validators.required]],
       nombre:['',[Validators.required, Validators.minLength(3)]],
       duracion:['',[Validators.required]],
       capacidad_bloque:['',[Validators.required]],
+      dias:['',[Validators.required]],
       diasSeleccionados: this.fb.array([]),
+      hora_inicio:['',[Validators.required]],
+      hora_termino:['',[Validators.required]],
       valor_base:['',[Validators.required, Validators.pattern(this.numberRegEx)]]
     });
 
@@ -68,8 +77,21 @@ export class FormularioAgregarServicioComponent implements OnInit {
 
     if (this.formulario.valid) {
       this.servicioServicio.agregarServicio(servicio).subscribe(rta=>{
-        if(rta == true)
-          this.registro = true;
+        if(rta != null) {
+          this.formulario.value.diasSeleccionados.forEach((diaActual: string) => {
+            var hora_inicio = <HTMLInputElement>document.getElementById('hora_inicio_' + diaActual);
+            var hora_termino = <HTMLInputElement>document.getElementById('hora_termino_' + diaActual);
+
+            let dia = {
+              dia: diaActual,
+              hora_inicio: hora_inicio.value,
+              hora_termino: hora_termino.value,
+              id_servicio: rta._id
+            }
+            this.servicioDia.agregarDia(dia).subscribe(rtaDia=>{})
+            this.registro = true;
+          });
+        }
         else
           alert("Error")
       })

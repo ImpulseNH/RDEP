@@ -8,17 +8,17 @@ class ServicioReservas {
   }
 
   async getAll() {
-    const query = `SELECT r._id, r.fecha_reserva, r.valor, u.nombre_completo, b._id AS id_bloque
-                   FROM reservas r, usuarios u, bloques_horarios b
-                   WHERE r.id_usuario = u._id AND r.id_bloqueHorario = b._id`
+    const query = `SELECT r._id, r.nombre_servicio, r.fecha, r.hora_inicio, r.hora_termino, r.valor, u.nombre_completo, re._id AS id_recinto, re.nombre_recinto, s._id AS id_servicio
+                   FROM reservas r, usuarios u, recintos re, servicios s
+                   WHERE r.id_usuario = u._id AND r.id_recinto = re._id AND r.id_servicio = s._id`
     const rta = await this.pool.query(query);
     return rta.rows;
   }
 
   async getOneByID(id) {
-    const query = `SELECT r._id, r.fecha_reserva, r.valor, u.nombre_completo, b._id
-                   FROM reservas r, usuarios u, bloques_horarios b
-                   WHERE r._id = $1 AND r.id_usuario = u._id AND r.id_bloqueHorario = b._id`;
+    const query = `SELECT r._id, r.nombre_servicio, r.fecha, r.hora_inicio, r.hora_termino, r.valor, u.nombre_completo, re._id AS id_recinto, s._id AS id_servicio
+                   FROM reservas r, usuarios u, recintos re, servicios s
+                   WHERE r._id = $1 AND r.id_usuario = u._id AND r.id_recinto = re._id AND r.id_servicio = s._id`;
     const rta = await this.pool.query(query, [id]);
     if(rta.rowCount == 0)
       throw boom.notFound("No se encontró ninguna reserva con esa id");
@@ -26,11 +26,11 @@ class ServicioReservas {
       return rta.rows;
   }
 
-  async add(fecha_reserva, valor, id_usuario, id_bloqueHorario) {
-    const query = `INSERT INTO reservas(fecha_reserva, valor, id_usuario, id_bloqueHorario) 
-                   VALUES($1, $2, $3, $4)`;
+  async add(nombre_servicio, fecha, hora_inicio, hora_termino, valor, id_usuario, id_recinto, id_servicio) {
+    const query = `INSERT INTO reservas(nombre_servicio, fecha, hora_inicio, hora_termino, valor, id_usuario, id_recinto, id_servicio) 
+                   VALUES($1, $2, $3, $4, $5, $6, $7, $8)`;
     try {
-      await this.pool.query(query, [fecha_reserva, valor, id_usuario, id_bloqueHorario]);
+      await this.pool.query(query, [nombre_servicio, fecha, hora_inicio, hora_termino, valor, id_usuario, id_recinto, id_servicio]);
     }
     catch(error) {
       throw boom.badRequest("Error al intentar agregar la reserva");
@@ -44,7 +44,7 @@ class ServicioReservas {
       throw boom.notFound("No se encontró ninguna reserva con esa id");
   }
 
-  async update(id, valor) {
+  async updatePrice(id, valor) {
     const query = `UPDATE reservas SET
                     valor = $2,
                   WHERE _id = $1`

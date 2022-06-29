@@ -18,4 +18,8 @@ export class ReservaService {
   public agregarReserva(datos: any): Observable<any> {
     return this.http.post(enviroment.connHttp+'/reservas', datos);
   }
+
+  public cancelarReserva(id: number): Observable<any> {
+    return this.http.delete(enviroment.connHttp+'/reservas/'+id);
+  }
 }
