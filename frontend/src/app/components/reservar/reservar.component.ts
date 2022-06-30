@@ -273,13 +273,24 @@ export class ReservarComponent implements OnInit {
         if(rta == true) {
           this.actualizarReservas();
           this.close();
-          alert("Reserva registrada con éxito")
-          this.router.navigate(['/admin']);
+          this.modalReservaRealizada();
         }
       }, error=>{
         alert("Debes ingresar un valor válido")
       })
     }
+  }
+
+  modalReservaRealizada() {
+    this.modal = new window.bootstrap.Modal(
+      document.getElementById("modalReservaRealizada")
+    );
+    this.modal.show();
+  }
+
+  volverAdmin() {
+    this.close();
+    this.router.navigate(['/admin']);
   }
 
   close() {

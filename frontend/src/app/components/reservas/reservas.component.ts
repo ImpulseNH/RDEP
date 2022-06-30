@@ -253,11 +253,22 @@ export class ReservasComponent implements OnInit {
         if(rta == true) {
           this.actualizarReservas();
           this.close();
-          alert("Reserva registrada con éxito. \n ¡Disfruta del servicio!")
-          this.router.navigate(['/mis-reservas']);
+          this.modalReservaRealizada();
         }
       })
     })
+  }
+
+  modalReservaRealizada() {
+    this.modal = new window.bootstrap.Modal(
+      document.getElementById("modalReservaRealizada")
+    );
+    this.modal.show();
+  }
+
+  irReservas() {
+    this.close();
+    this.router.navigate(['/mis-reservas']);
   }
 
   close() {
