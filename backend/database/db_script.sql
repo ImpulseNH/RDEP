@@ -112,5 +112,3 @@ CREATE TABLE reservas(
 
 INSERT INTO perfiles(tipo)
 VALUES ('Administrador'), ('Cliente'), ('Recepcionista');
-
----------------------------- sssssssssssssssss ----------------------------

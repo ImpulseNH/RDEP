@@ -15,6 +15,10 @@ export class ReservaService {
     return this.http.get(enviroment.connHttp+'/reservas');
   }
 
+  public obtenerReservasDeCliente(idCliente: number): Observable<any> {
+    return this.http.get(enviroment.connHttp+'/reservas/'+idCliente)
+  }
+
   public agregarReserva(datos: any): Observable<any> {
     return this.http.post(enviroment.connHttp+'/reservas', datos);
   }

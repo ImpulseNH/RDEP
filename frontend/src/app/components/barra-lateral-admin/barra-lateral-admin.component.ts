@@ -70,6 +70,7 @@ export class BarraLateralAdminComponent implements OnInit {
       this.dias = rta;
     })
 
+    // Reservas
     this.servicioReserva.obtenerReservas().subscribe(rta=>{
       this.reservas = rta;
     })
@@ -132,7 +133,8 @@ export class BarraLateralAdminComponent implements OnInit {
     })
   }
 
-  // Eliminar Reserva
+  // Funciones modal Reservas
+  // Cancelar Reserva
   modalCancelarReserva(reserva: Reserva) {
     this.modal = new window.bootstrap.Modal(
       document.getElementById("modalCancelarReserva")
@@ -151,7 +153,6 @@ export class BarraLateralAdminComponent implements OnInit {
   }
 
   // Extra
-
   close() {
     this.modal.hide();
   }

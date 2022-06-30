@@ -31,6 +31,7 @@ import { inicioScreenComponent } from './screens/inicio/inicio-screen.component'
 import { FormularioEditarRecintoComponent } from './components/formulario-editar-recinto/formulario-editar-recinto.component';
 import { FormularioEditarClienteComponent } from './components/formulario-editar-cliente/formulario-editar-cliente.component';
 import { ReservarComponent } from './components/reservar/reservar.component';
+import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
 
 
 
@@ -54,6 +55,7 @@ import { ReservarComponent } from './components/reservar/reservar.component';
     FormularioEditarRecintoComponent,
     FormularioEditarClienteComponent,
     ReservarComponent,
+    MisReservasComponent,
   ],
   imports: [
     BrowserModule,

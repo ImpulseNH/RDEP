@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Mis reservas -->
+    <div class="card mb-4">
+
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Mis Reservas</h1>
+            <div class="card mb-4">
+            </div>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Recinto</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Hora de inicio</th>
+                        <th>Hora de término</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reserva of reservas">
+                        <td>{{reserva.nombre_recinto}}</td>
+                        <td>{{reserva.nombre_servicio}}</td>
+                        <td>{{reserva.fecha | date:'d/M/y'}}</td>
+                        <td>{{reserva.hora_inicio.slice(0,-3)}}</td>
+                        <td>{{reserva.hora_termino.slice(0,-3)}}</td>
+                        <td>{{reserva.valor}}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#modalCancelarReserva" (click)="modalCancelarReserva(reserva)">
+                                Cancelar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<!-- Modal Cancelar Reserva -->
+<div class="modal fade" id="modalCancelarReserva" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Reserva</h5>
+        <button type="button" class="cerrar" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body" *ngIf="reservaActual != null">
+            Datos de la reserva seleccionada:<br>
+            <br>
+            <b>Recinto: </b>{{reservaActual.nombre_recinto}}<br>
+            <b>Servicio: </b>{{reservaActual.nombre_servicio}}<br>
+            <b>Fecha: </b>{{reservaActual.fecha | date:'d/M/y'}}<br>
+            <b>Hora de inicio: </b>{{reservaActual.hora_inicio.slice(0,-3)}}<br>
+            <b>Hora de término: </b>{{reservaActual.hora_termino.slice(0,-3)}}<br>
+            <b>Valor: </b>{{reservaActual.valor}}<br>
+            <br>
+            ¿Estás seguro que quieres cancelar esta reserva?<br>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarCancelarReserva()">Confirmar</button>
+        </div>
+    </div>
+    </div>
+</div>

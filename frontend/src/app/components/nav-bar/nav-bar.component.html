@@ -9,11 +9,13 @@
             <div class="navbar-nav">
               <a *ngIf="!admin" [routerLink]="['inicio']" [routerLinkActive]="'active'" class="rounded border bg-white px-4 mx-3 nav-link">Inicio</a>
 
-              <a *ngIf="!login" [routerLink]="['login']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Acceso Usuario</a>
+              <a *ngIf="!login" [routerLink]="['login']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Ingresar</a>
 
-              <a *ngIf="!login" [routerLink]="['registro']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Regístrate</a>
+              <a *ngIf="!login" [routerLink]="['registro']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Registrarse</a>
 
               <a *ngIf="login && !admin" [routerLink]="['reservas']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Reservar</a>
+
+              <a *ngIf="login && !admin" [routerLink]="['mis-reservas']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Mis Reservas</a>
 
               <a *ngIf="login && admin" [routerLink]="['admin']" [routerLinkActive]="'active'"class="rounded border bg-white px-4 mx-3 nav-link" >Administración</a>
 

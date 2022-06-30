@@ -18,8 +18,8 @@ router.get('/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        const reserva = await service.getOneByID(id);
-        res.status(200).json(reserva);
+        const reservas = await service.getAllByClientID(id);
+        res.status(200).json(reservas);
     } catch (error) {
         next(error);
     }

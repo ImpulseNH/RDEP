@@ -11,6 +11,7 @@ import { inicioScreenComponent } from './screens/inicio/inicio-screen.component'
 import { FormularioEditarRecintoComponent } from './components/formulario-editar-recinto/formulario-editar-recinto.component';
 import { FormularioEditarClienteComponent } from './components/formulario-editar-cliente/formulario-editar-cliente.component';
 import { ReservarComponent } from './components/reservar/reservar.component';
+import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/login', pathMatch:'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path:'admin/editar-recinto/:id', component: FormularioEditarRecintoComponent},
   {path:'admin/agregar-servicio', component: FormularioAgregarServicioComponent},
   {path:'admin/reservar', component: ReservarComponent},
-  {path:'reservas', component: ReservasComponent}
+  {path:'reservas', component: ReservasComponent},
+  {path:'mis-reservas', component: MisReservasComponent}
 ]
 
 @NgModule({

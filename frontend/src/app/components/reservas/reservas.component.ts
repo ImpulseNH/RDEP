@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Recinto } from 'src/app/interfaces/recinto';
 import { Servicio } from 'src/app/interfaces/servicio';
 import { Dia } from 'src/app/interfaces/dia';
@@ -15,7 +16,8 @@ declare var window:any;
 @Component({
   selector: 'app-reservas',
   templateUrl: './reservas.component.html',
-  styleUrls: ['./reservas.component.scss']
+  styleUrls: ['./reservas.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReservasComponent implements OnInit {
   modal: any;
@@ -24,6 +26,7 @@ export class ReservasComponent implements OnInit {
 
   recintos:Array<Recinto> = [];
   servicios_recinto:Array<Servicio> = [];
+  capacidad_bloque:Array<Number> = [];
   dias_servicio:Array<Dia> = [];
   dias_validos:Array<number> = [];
   horario:Array<string> = [];
@@ -56,7 +59,8 @@ export class ReservasComponent implements OnInit {
               private servicioRecinto:RecintoService,
               private servicioServicio:ServicioService,
               private servicioReserva:ReservaService,
-              private servicioDia:DiaService) {
+              private servicioDia:DiaService,
+              private router:Router) {
     this.actualizarReservas();
     this.actualizarRecintos();
   }
@@ -176,6 +180,7 @@ export class ReservasComponent implements OnInit {
   selectServicio(servicio: Servicio) {
     this.servicio_seleccionado = servicio;
     this.actualizarDias(this.servicio_seleccionado);
+    this.capacidad_bloque = new Array(this.servicio_seleccionado.capacidad_bloque);
     this.horario = [];
   }
 
@@ -183,10 +188,6 @@ export class ReservasComponent implements OnInit {
     this.fecha_seleccionada = date.value;
     this.actualizarDia(date.value);
     this.actualizarHorario();
-  }
-
-  capacidad_bloque() {
-    return new Array(this.servicio_seleccionado.capacidad_bloque);
   }
 
   compararFechas(fechaBloque: Date) {
@@ -253,6 +254,7 @@ export class ReservasComponent implements OnInit {
           this.actualizarReservas();
           this.close();
           alert("Reserva registrada con éxito. \n ¡Disfruta del servicio!")
+          this.router.navigate(['/mis-reservas']);
         }
       })
     })

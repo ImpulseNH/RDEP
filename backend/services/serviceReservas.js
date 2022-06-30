@@ -26,6 +26,14 @@ class ServicioReservas {
       return rta.rows;
   }
 
+  async getAllByClientID(id) {
+    const query = `SELECT r._id, r.nombre_servicio, r.fecha, r.hora_inicio, r.hora_termino, r.valor, u.nombre_completo, re._id AS id_recinto, re.nombre_recinto, s._id AS id_servicio
+                   FROM reservas r, usuarios u, recintos re, servicios s
+                   WHERE r.id_usuario = u._id AND r.id_recinto = re._id AND r.id_servicio = s._id AND r.id_usuario = $1`
+    const rta = await this.pool.query(query, [id]);
+    return rta.rows;
+  }
+
   async add(nombre_servicio, fecha, hora_inicio, hora_termino, valor, id_usuario, id_recinto, id_servicio) {
     const query = `INSERT INTO reservas(nombre_servicio, fecha, hora_inicio, hora_termino, valor, id_usuario, id_recinto, id_servicio) 
                    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`;
